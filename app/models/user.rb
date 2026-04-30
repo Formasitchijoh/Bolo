@@ -8,4 +8,10 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   validates :role, inclusion: { in: %w[customer technician dispatcher company_admin account_owner] }
   validates :status, inclusion: { in: %w[active suspended banned] }
+  has_secure_password
+  # Rails automatically:
+  # - Hashes passwords with bcrypt (cost factor 12)
+  # - Adds password and password_confirmation attributes
+  # - Validates password presence on create
+  # - Provides authenticate(password) method
 end
