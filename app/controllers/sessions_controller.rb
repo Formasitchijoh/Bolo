@@ -6,6 +6,10 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
+      tenant = @user.tenant
+      if tenant.present?
+        session[:company_id] = tenant.companies.first&.id
+      end
       redirect_to dashboard_path, notice: "Successful login"
     else
       render :new, status: :unauthorized
