@@ -14,4 +14,24 @@ class User < ApplicationRecord
   # - Adds password and password_confirmation attributes
   # - Validates password presence on create
   # - Provides authenticate(password) method
+
+  def customer?
+    role == "customer"
+  end
+
+  def technician?
+    role == "technician"
+  end
+
+  def dispatcher?
+    role == "dispatcher"
+  end
+
+  def company_admin?
+    role == "company_admin"
+  end
+
+  def account_owner?
+    role == "account_owner"
+  end
 end

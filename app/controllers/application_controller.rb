@@ -27,4 +27,25 @@ class ApplicationController < ActionController::Base
   def require_company
     redirect_to dashboard_path unless current_company
   end
+
+  def require_customer
+    redirect_to dashboard_path unless current_user&.customer?
+  end
+
+  def require_technician
+    redirect_to dashboard_path unless current_user&.technician?
+  end
+
+  def require_dispatcher
+    redirect_to dashboard_path unless current_user&.dispatcher?
+  end
+
+  def require_company_admin
+    redirect_to dashboard_path unless current_user&.company_admin?
+  end
+
+  def require_account_owner
+    redirect_to dashboard_path unless current_user&.account_owner?
+  end
+
 end
