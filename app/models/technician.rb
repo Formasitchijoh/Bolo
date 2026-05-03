@@ -13,4 +13,5 @@ class Technician < ApplicationRecord
   has_many :work_orders, through: :assignments
   validates :verified, inclusion: { in: [true, false] }
   validates :status, inclusion: { in: %w[unverified verified suspended banned in_review] }
+  scope :for_company, lambda  { |company| where(company_id: company.id) }
 end

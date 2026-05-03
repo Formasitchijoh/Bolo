@@ -8,4 +8,5 @@ class Company < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates :status, inclusion: { in: %w[active suspended banned] }
+  scope :for_company, ->(company) { where(id: company.id) }
 end
