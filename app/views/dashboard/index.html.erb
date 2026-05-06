@@ -1,3 +1,10 @@
 <h1>Dashboard#index</h1>
 <p>Find me in app/views/dashboard/index.html.erb</p>
 <%= link_to "LogOut", logout_path, data: { turbo_method: :delete } %>
+
+<%# Embedding tag %>
+<% for user in @users%>
+    <%# Output embedding tag%>
+    <p><%= user.email %></p>
+    <p> <%= user.role %></p>
+<% end %>

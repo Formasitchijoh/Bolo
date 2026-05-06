@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: #f4f6f9;
+  color: #1a1a2e;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 0 1.5rem;
+  height: 60px;
+  border-bottom: 1px solid #e2e8f0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.navbar-brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #003153;
+  text-decoration: none;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-user {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.navbar-logout {
+  font-size: 0.85rem;
+  color: #e53e3e;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #e53e3e;
+  border-radius: 4px;
+}
+
+.navbar-logout:hover {
+  background-color: #e53e3e;
+  color: white;
+}
+
+/* App body */
+.app-body {
+  display: flex;
+  flex-direction: row;
+  margin-top: 60px;
+  height: calc(100vh - 60px);
+}
+
+/* Sidebar */
+.sidebar-container {
+  width: 240px;
+  min-width: 240px;
+  background-color: #003153;
+  height: 100%;
+  padding: 1.5rem 0;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+.sidebar-container ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-container li {
+  width: 100%;
+}
+
+.sidebar-container a {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  color: #cbd5e0;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.sidebar-container a:hover {
+  background-color: #004a7c;
+  color: #ffffff;
+}
+
+.sidebar-divider {
+  border: none;
+  border-top: 1px solid #004a7c;
+  margin: 0.5rem 1.5rem;
+}
+
+/* Main content */
+.app-main {
+  margin-left: 240px;
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}

@@ -1,0 +1,7 @@
+<nav class="navbar">
+  <%= link_to "Bolo", dashboard_path, class: "navbar-brand" %>
+  <div class="navbar-right">
+    <span class="navbar-user"><%= current_user.first_name %> <%= current_user.last_name %></span>
+    <%= link_to "Logout", logout_path, class: "navbar-logout", data: { turbo_method: :delete } %>
+  </div>
+</nav>

@@ -24,6 +24,19 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% if current_user %>
+      <div>
+        <%= render "layouts/navbar"%>
+        <div class="app-body">
+          <%= render "layouts/sidebar" %>
+            <main class="app-main">
+              <%= render "shared/flash" %>
+              <%= yield %>
+            </main>
+        </div>
+      </div>
+    <% else %>
+       <%= yield %>
+    <% end %>
   </body>
 </html>
