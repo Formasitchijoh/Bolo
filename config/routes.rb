@@ -9,5 +9,10 @@ Rails.application.routes.draw do
 
   get "dashboard" => "dashboard#index"
 
+  # Jobs Routes
+  get "jobs" => "jobs#index"
+  get "jobs/new" => "jobs#new"
+  post "jobs" => "jobs#create"
+
   get "up" => "rails/health#show", as: :rails_health_check
 end

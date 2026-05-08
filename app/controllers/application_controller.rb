@@ -48,4 +48,7 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_path unless current_user&.account_owner?
   end
 
+  def require_platform_admin
+    redirect_to dashboard_path unless current_user&.platform_admin?
+  end
 end

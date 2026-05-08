@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :password_digest, presence: true
-  validates :role, inclusion: { in: %w[customer technician dispatcher company_admin account_owner] }
+  validates :role, inclusion: { in: %w[customer technician dispatcher company_admin account_owner platform_admin] }
   validates :status, inclusion: { in: %w[active suspended banned] }
   has_secure_password
   # Rails automatically:
@@ -33,5 +33,9 @@ class User < ApplicationRecord
 
   def account_owner?
     role == "account_owner"
+  end
+
+  def platform_admin?
+    role == "platform_admin"
   end
 end
