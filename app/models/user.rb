@@ -14,6 +14,7 @@ class User < ApplicationRecord
   # - Adds password and password_confirmation attributes
   # - Validates password presence on create
   # - Provides authenticate(password) method
+  after_create :create_profile
 
   def customer?
     role == "customer"
@@ -37,5 +38,18 @@ class User < ApplicationRecord
 
   def platform_admin?
     role == "platform_admin"
+  end
+
+  private
+
+  def create_profile
+    case role
+    when "customer"
+      create_customer(status: "good_standing")
+    when "technician"
+      create_technician(status: "unverified")
+    when "account_owner"
+      create_tenant
+    end
   end
 end

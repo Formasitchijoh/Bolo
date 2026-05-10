@@ -20,7 +20,7 @@
     width: 50%;
     padding: 2rem;
 }
-.form-group {
+.form-group, .location-form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 0.5rem;
@@ -41,6 +41,13 @@
 
 }
 
+.location-form-group input{
+    width: 180%;
+    height: 20px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 .auth-form input[type="submit"] {
     width: 30%;
     padding: 0.5rem;

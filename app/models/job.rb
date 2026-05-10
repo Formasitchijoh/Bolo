@@ -5,8 +5,10 @@ class Job < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
   has_many :assignments, dependent: :destroy
   validates :details, presence: true
-  validates [ :price_range_min, :price_range_max ], presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :status, inclusion: { in: %w[available in_progress completed needs_rebroadcast cancelled] }
+  validates :title, presence: true
+  validates :price_range_min, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :price_range_max, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  # validates :status, inclusion: { in: %w[available in_progress completed needs_rebroadcast cancelled] }
   validate :price_range_is_valid
   scope :for_company,  ->(company) { where(company_id: company.id) }
 

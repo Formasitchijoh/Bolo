@@ -17,7 +17,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params())
     # Get the current user from session to prevent Malicious user submitting any customer_id
     # And creating Jobs on behalf of the customer
-    @job.customer = current_user.customer
+    @job.customer = current_user.customer # Getting the associated customer record that is linked to this user 
     if @job.save
       redirect_to jobs_path, notice: "Job created successfully"
     else
@@ -33,6 +33,6 @@ class JobsController < ApplicationController
   end
 
   def job_params
-    params.require(:job).permit(:company_id, :job_category_id, :latitude, :longitude, :details, :media, :price_range_min, :price_range_max)
+    params.require(:job).permit(:company_id, :job_category_id, :title, :latitude, :longitude, :details, :media, :price_range_min, :price_range_max)
   end
 end
