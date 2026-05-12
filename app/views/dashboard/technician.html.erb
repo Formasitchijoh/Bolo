@@ -1,1 +1,27 @@
-<h1>Technician Dashboard</h1>
+<div class="dashboard-header">
+  <h1>Welcome back, <%= current_user.first_name %></h1>
+  <p class="dashboard-subtitle">Your assignment overview.</p>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <span class="kpi-number"><%= @total_assignments %></span>
+    <span class="kpi-label">Total Assignments</span>
+  </div>
+  <div class="kpi-card kpi-card--alert">
+    <span class="kpi-number"><%= @pending_assignments %></span>
+    <span class="kpi-label">Pending</span>
+  </div>
+  <div class="kpi-card kpi-card--active">
+    <span class="kpi-number"><%= @active_assignments %></span>
+    <span class="kpi-label">Active</span>
+  </div>
+  <div class="kpi-card kpi-card--success">
+    <span class="kpi-number"><%= @completed_work_orders %></span>
+    <span class="kpi-label">Completed</span>
+  </div>
+</div>
+
+<div class="dashboard-actions">
+  <%= link_to "View Assignments", assignments_path, class: "button" %>
+</div>

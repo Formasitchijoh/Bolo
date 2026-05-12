@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  before_action :require_guest, only: [ :new, :create ]
+
   def new
     @user = User.new
   end
@@ -7,7 +9,8 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to dashboard_path, notice: "Welcome to Bolo"
+      destination = @user.technician? ? edit_technician_profile_path : dashboard_path
+      redirect_to destination, notice: "Welcome to Bolo"
     else
       render :new, status: :unprocessable_entity
     end

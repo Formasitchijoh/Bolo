@@ -16,11 +16,6 @@
     cursor: pointer;
 }
 
-h1 {
-    font-size: 0.2rem;
-    font-weight: lighter;
-    line-height: 2px;
-}
 
 .job-actions {
     display: flex;
@@ -36,7 +31,24 @@ h1 {
     cursor: pointer;
     font-size: 0.9rem;
     color: white;
-    background-color: #1a1a2e;
+    background-color: #003153;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button:hover {
+    background-color: #004a7c;
+}
+
+.button-secondary {
+    background-color: transparent;
+    color: #003153;
+    border: 1px solid #003153;
+}
+
+.button-secondary:hover {
+    background-color: #003153;
+    color: white;
 }
 
 .username {

@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
 }
 
 body {
@@ -10,10 +10,15 @@ body {
   color: #1a1a2e;
 }
 
-.app-shell {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 /* Navbar */
@@ -78,43 +83,77 @@ body {
   min-width: 240px;
   background-color: #003153;
   height: 100%;
-  padding: 1.5rem 0;
   position: fixed;
   top: 60px;
   left: 0;
   bottom: 0;
-  overflow-y: auto;
-}
-
-.sidebar-container ul {
-  list-style: none;
   display: flex;
   flex-direction: column;
 }
 
-.sidebar-container li {
+.sidebar-logo {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #004a7c;
+}
+
+.sidebar-logo a {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-nav {
+  list-style: none;
+  flex: 1;
+  padding: 0.75rem 0;
+  overflow-y: auto;
+}
+
+.sidebar-nav li {
   width: 100%;
 }
 
-.sidebar-container a {
+.sidebar-link {
   display: block;
   padding: 0.75rem 1.5rem;
   color: #cbd5e0;
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
-  transition: background-color 0.2s;
+  transition: background-color 0.15s;
 }
 
-.sidebar-container a:hover {
+.sidebar-link:hover {
   background-color: #004a7c;
   color: #ffffff;
 }
 
-.sidebar-divider {
-  border: none;
+.sidebar-footer {
+  padding: 1rem 1.5rem;
   border-top: 1px solid #004a7c;
-  margin: 0.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar-user {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-logout {
+  font-size: 0.85rem;
+  color: #fc8181;
+  text-decoration: none;
+}
+
+.sidebar-logout:hover {
+  color: #fff;
 }
 
 /* Main content */

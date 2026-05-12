@@ -6,7 +6,7 @@ class JobsController < ApplicationController
 
 
   def index
-    @jobs = Job.where(customer_id: current_user.customer.id)
+    @jobs = Job.where(customer_id: current_user&.customer&.id)
   end
 
   def new

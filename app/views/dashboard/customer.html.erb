@@ -1,1 +1,24 @@
-<h1>Customer Dashboard</h1>
+<div class="dashboard-header">
+  <h1>Welcome back, <%= current_user.first_name %></h1>
+  <p class="dashboard-subtitle">Here's what's happening with your jobs.</p>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <span class="kpi-number"><%= @total_jobs %></span>
+    <span class="kpi-label">Jobs Posted</span>
+  </div>
+  <div class="kpi-card kpi-card--active">
+    <span class="kpi-number"><%= @active_jobs %></span>
+    <span class="kpi-label">Active Jobs</span>
+  </div>
+  <div class="kpi-card kpi-card--success">
+    <span class="kpi-number"><%= @completed_jobs %></span>
+    <span class="kpi-label">Completed</span>
+  </div>
+</div>
+
+<div class="dashboard-actions">
+  <%= link_to "Post a New Job", "/jobs/new", class: "button" %>
+  <%= link_to "View All Jobs", "/jobs", class: "button button-secondary" %>
+</div>
