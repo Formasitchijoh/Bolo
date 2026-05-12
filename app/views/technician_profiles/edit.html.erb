@@ -1,0 +1,54 @@
+<div class="container" data-controller="location">
+  <h1>Set Up Your Profile</h1>
+
+  <%= form_with url: technician_profile_path, method: :patch do |form| %>
+
+    <div class="location-field">
+      <div class="location-form-group">
+        <%= label_tag :address, "Your Current Location" %>
+        <%= text_field_tag :address,
+              nil,
+              data: {
+                location_target: "address",
+                action: "blur->location#searchAddress"
+              },
+              placeholder: "Type your address and click away to search" %>
+      </div>
+      <button class="cta-button" type="button"
+              data-action="click->location#useCurrentLocation">
+        Use my location
+      </button>
+    </div>
+
+    <span data-location-target="status" class="location-status"></span>
+
+    <%= hidden_field_tag "technician[latitude]",  @technician.latitude,  data: { location_target: "latitude" } %>
+    <%= hidden_field_tag "technician[longitude]", @technician.longitude, data: { location_target: "longitude" } %>
+
+    <div class="form-group">
+      <label>Your Skills</label>
+      <% @skills_by_category.each do |category, skills| %>
+        <div class="skill-group">
+          <strong><%= category.name %></strong>
+          <% skills.each do |skill| %>
+            <div class="skill-option">
+              <%= check_box_tag "technician[skill_ids][]",
+                    skill.id,
+                    @selected_skill_ids?(skill.id),
+                    id: "skill_#{skill.id}" %>
+              <%= label_tag "skill_#{skill.id}", skill.name %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+<%# Done: Check is there is a potential n + 1  query issue in this view by @technician.skill_ids.include? %>
+<%# Good catch %>
+
+    <div class="button-container">
+      <%= submit_tag "Save Profile", class: "button" %>
+    </div>
+
+  <% end %>
+</div>
