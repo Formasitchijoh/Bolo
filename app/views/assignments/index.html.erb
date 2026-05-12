@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>My Assignments</h1>
+
+  <% if @assignments.empty? %>
+    <p>No assignments yet. Check back soon.</p>
+  <% else %>
+    <% @assignments.each do |assignment| %>
+      <div class="job-card">
+        <div class="job-card-header">
+          <h2><%= assignment.job.title %></h2>
+          <span class="status-badge status-<%= assignment.status %>"><%= assignment.status.humanize %></span>
+        </div>
+
+        <p class="details"><%= assignment.job.details %></p>
+        <p><strong>Category:</strong> <%= assignment.job.job_category.name %></p>
+        <p><strong>Price range:</strong> <%= number_to_currency(assignment.job.price_range_min, unit: "FCFA ", format: "%u%n") %> – <%= number_to_currency(assignment.job.price_range_max, unit: "FCFA ", format: "%u%n") %></p>
+
+        <% if assignment.status == "pending" %>
+          <p class="claim-window">
+            <strong>Respond before:</strong> <%= assignment.claim_window.strftime("%H:%M") %>
+          </p>
+          <div class="button-container">
+            <%= button_to "Accept", accept_assignment_path(assignment), method: :patch, class: "button" %>
+            <%= button_to "Reject", reject_assignment_path(assignment), method: :patch, class: "button button-secondary" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -1,21 +1,57 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Job Categories
+plumbing = JobCategory.find_or_create_by!(name: "Plumbing")
+hvac     = JobCategory.find_or_create_by!(name: "HVAC")
 
-# category = JobCategory.find_by(name: "Plumbing")
-# category1 = JobCategory.find_by(name: "HVAC")
-# Skill.create!(name: "Pipe fitting", job_category: category)
-# Skill.create!(name: "Drain cleaning", job_category: category)
-# Skill.create!(name: "Leak repair", job_category: category)
-# Skill.create!(name: "Thermostat installation", job_category: category1)
-# Skill.create!(name: "Ductwork installation", job_category: category1)
+# Skills
+pipe_fitting          = Skill.find_or_create_by!(name: "Pipe fitting",           job_category: plumbing)
+drain_cleaning        = Skill.find_or_create_by!(name: "Drain cleaning",         job_category: plumbing)
+leak_repair           = Skill.find_or_create_by!(name: "Leak repair",            job_category: plumbing)
+thermostat_install    = Skill.find_or_create_by!(name: "Thermostat installation", job_category: hvac)
+ductwork_install      = Skill.find_or_create_by!(name: "Ductwork installation",   job_category: hvac)
 
+# Account owner + tenant + company
+owner = User.find_or_create_by!(email: "owner@bolo.com") do |u|
+  u.first_name     = "Bolo"
+  u.last_name      = "Owner"
+  u.password       = "password123"
+  u.role           = "account_owner"
+  u.status         = "active"
+end
 
-tenant = Tenant.find(1)
-Company.create!(tenant: tenant, name: "Bolo", email: "bolo@example.com", status: "active")
+company = Company.find_or_create_by!(name: "Bolo") do |c|
+  c.tenant = owner.tenant
+  c.email  = "bolo@example.com"
+  c.status = "active"
+end
+
+# Customer
+customer_user = User.find_or_create_by!(email: "customer@bolo.com") do |u|
+  u.first_name = "Alice"
+  u.last_name  = "Ngo"
+  u.password   = "password123"
+  u.role       = "customer"
+  u.status     = "active"
+end
+
+# Technician — fully set up and verified so the matching engine can pick them up
+tech_user = User.find_or_create_by!(email: "tech@bolo.com") do |u|
+  u.first_name = "Jean"
+  u.last_name  = "Mbarga"
+  u.password   = "password123"
+  u.role       = "technician"
+  u.status     = "active"
+end
+
+tech = tech_user.technician
+tech.update!(
+  status:    "verified",
+  verified:  true,
+  latitude:  3.8480,   # Yaoundé, Cameroon
+  longitude: 11.5021
+)
+
+TechnicianSkill.find_or_create_by!(technician: tech, skill: pipe_fitting)
+TechnicianSkill.find_or_create_by!(technician: tech, skill: drain_cleaning)
+TechnicianSkill.find_or_create_by!(technician: tech, skill: leak_repair)
+TechnicianSkill.find_or_create_by!(technician: tech, skill: thermostat_install)
+TechnicianSkill.find_or_create_by!(technician: tech, skill: ductwork_install)

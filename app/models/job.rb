@@ -11,7 +11,7 @@ class Job < ApplicationRecord
   # validates :status, inclusion: { in: %w[available in_progress completed needs_rebroadcast cancelled] }
   validate :price_range_is_valid
   scope :for_company,  ->(company) { where(company_id: company.id) }
-
+  after_create :broadcast_to_technicians
   private
 
   def price_range_is_valid
@@ -19,5 +19,9 @@ class Job < ApplicationRecord
     if price_range_min >= price_range_max
       errors.add(:price_range_min, "must be less than max price")
     end
+  end
+
+  def broadcast_to_technicians
+    JobMatchingService.new(self).call
   end
 end
