@@ -1,21 +1,31 @@
-<div class="sidebar-container">
-    <ul>
-        <li>
-            <a href="/dashboard">Home</a>
-        </li>
-        <hr>
-        <li>
-            <a href="/login">Jobs</a>
-        </li>
-        <hr>
-        <li>
-            <a href="/dashboard">Customers</a>
-        </li>
-         <hr>
-        <li>
-            <a href="/dashboard">WorkOrder</a>
-        </li>
-        
-    </ul>
+<nav class="sidebar-container">
+  <div class="sidebar-logo">
+    <%= link_to "Bolo", dashboard_path %>
+  </div>
 
-</div>
+  <ul class="sidebar-nav">
+    <li>
+      <%= link_to "Dashboard", dashboard_path, class: "sidebar-link" %>
+    </li>
+
+    <% if current_user.customer? %>
+      <li><%= link_to "Post a Job", "/jobs/new", class: "sidebar-link" %></li>
+      <li><%= link_to "My Jobs", "/jobs", class: "sidebar-link" %></li>
+    <% end %>
+
+    <% if current_user.technician? %>
+      <li><%= link_to "Assignments", assignments_path, class: "sidebar-link" %></li>
+      <li><%= link_to "My Profile", edit_technician_profile_path, class: "sidebar-link" %></li>
+    <% end %>
+
+    <% if current_user.dispatcher? || current_user.company_admin? %>
+      <li><%= link_to "Jobs Board", "/jobs", class: "sidebar-link" %></li>
+      <li><%= link_to "Assignments", assignments_path, class: "sidebar-link" %></li>
+    <% end %>
+  </ul>
+
+  <div class="sidebar-footer">
+    <span class="sidebar-user"><%= current_user.first_name %> <%= current_user.last_name %></span>
+    <%= link_to "Logout", logout_path, class: "sidebar-logout", data: { turbo_method: :delete } %>
+  </div>
+</nav>
