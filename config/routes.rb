@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get "assignments" => "assignments#index"
   patch "assignments/:id/accept" => "assignments#accept", as: :accept_assignment
   patch "assignments/:id/reject" => "assignments#reject", as: :reject_assignment
+  patch "assignments/:id/en_route" => "assignments#en_route",  as: :en_route
+  patch "assignments/:id/arrived" => "assignments#arrived",  as: :arrived
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

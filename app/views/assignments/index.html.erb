@@ -19,9 +19,21 @@
           <p class="claim-window">
             <strong>Respond before:</strong> <%= assignment.claim_window.strftime("%H:%M") %>
           </p>
+          <%# TODO: If the claim time expires then the status should turn to rejected and the buttons should not display %>
           <div class="button-container">
             <%= button_to "Accept", accept_assignment_path(assignment), method: :patch, class: "button" %>
             <%= button_to "Reject", reject_assignment_path(assignment), method: :patch, class: "button button-secondary" %>
+          </div>
+        <% end %>
+
+        <% if assignment.status == 'assigned'%>
+          <div class="button-container">
+            <%= button_to "Enroute", en_route_path(assignment), method: :patch, class: "button" %>
+          </div>
+        <% end %>
+        <% if assignment.status == 'en_route'%>
+          <div class="button-container">
+            <%= button_to "Arrived", arrived_path(assignment), method: :patch, class: "button" %>
           </div>
         <% end %>
       </div>

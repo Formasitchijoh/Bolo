@@ -1,7 +1,7 @@
 class AssignmentsController < ApplicationController
   before_action :require_login
   before_action :require_technician
-  before_action :set_assignment, only: [ :accept, :reject ]
+  before_action :set_assignment, only: [ :accept, :reject, :en_route, :arrived ]
 
   def index
     @assignments = current_user.technician.assignments
@@ -22,6 +22,17 @@ class AssignmentsController < ApplicationController
     @assignment.update!(status: "rejected")
     JobMatchingService.new(@assignment.job).call
     redirect_to assignments_path, notice: "Job passed to the next technician."
+  end
+
+  def en_route
+    @assignment.update!(status: "en_route")
+    redirect_to assignments_path
+  end
+
+  # TODO: Once the technician arrives at the job destination then you create a work order
+  def arrived
+    @assignment.update!(status: "arrived")
+    redirect_to assignments_path
   end
 
   private

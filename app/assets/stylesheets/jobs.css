@@ -34,6 +34,7 @@
     background-color: #003153;
     text-decoration: none;
     display: inline-block;
+    margin-inline-start: 0.5rem;
 }
 
 .button:hover {
