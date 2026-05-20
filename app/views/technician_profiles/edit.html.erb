@@ -34,7 +34,7 @@
             <div class="skill-option">
               <%= check_box_tag "technician[skill_ids][]",
                     skill.id,
-                    @selected_skill_ids?(skill.id),
+                    @selected_skill_ids.include?(skill.id),
                     id: "skill_#{skill.id}" %>
               <%= label_tag "skill_#{skill.id}", skill.name %>
             </div>
@@ -43,8 +43,7 @@
       <% end %>
     </div>
 
-<%# Done: Check is there is a potential n + 1  query issue in this view by @technician.skill_ids.include? %>
-<%# Good catch %>
+<%# TODO: Check is there is a potential n + 1  query issue in this view by @technician.skill_ids.include? %>
 
     <div class="button-container">
       <%= submit_tag "Save Profile", class: "button" %>

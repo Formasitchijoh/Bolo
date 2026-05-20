@@ -50,14 +50,18 @@ class JobMatchingService
 
     technician = ranked_technicians.first
 
+    # Creating a new assignment with status 'pending' for the closest technician
+    # This will trigger the notification to the technician via ActiveRecord callbacks
     @job.assignments.create!(
       technician: technician,
       company_id: technician.company_id,
       status: "pending",
-      claim_window: Time.current + CLAIM_WINDOW_MINUTES.minutes
+      claim_window: Time.current + 1.minutes
     )
   end
 
+  # Haversine formula to calculate distance between two point on the globe using lat/lon 
+  # https://medium.com/@mattgazzano/the-haversine-formula-a-must-have-for-geospatial-reporting-1a1258552a5e
   def distance_in_km(lat_job, lon_job, lat_tech, lon_tech)
     rad_per_deg = Math::PI / 180
     earth_radius = 6371
