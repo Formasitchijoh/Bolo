@@ -9,6 +9,7 @@
     <p><strong>Technician: </strong> <%= @work_order.assignment.technician.user.first_name %> <%= @work_order.assignment.technician.user.last_name %> </p>
 
     <div class="position-right">
+      <%# By Nesting line item in work order on passing the @workorder to the route it exstracts the work_order_id and passes it as a params to the request which can be assesd in the controller  %>
         <%= link_to "Add Line Item", new_line_item_path(@work_order), class: "button" %>
         <%= button_to "Start Work", start_work_order_path(@work_order), method: :patch, class: "button button-secondary" %>
     </div>
