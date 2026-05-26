@@ -32,9 +32,7 @@
           </div>
         <% end %>
         <% if assignment.status == 'en_route'%>
-          <div class="button-container">
-            <%= button_to "Arrived", arrived_path(assignment), method: :patch, class: "button" %>
-          </div>
+         
         <% end %>
       </div>
     <% end %>

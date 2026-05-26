@@ -31,7 +31,10 @@ class AssignmentsController < ApplicationController
 
   # TODO: Once the technician arrives at the job destination then you create a work order
   def arrived
-    @assignment.update!(status: "arrived")
+    WorkOrder.transaction do
+      @assignment.update!(status: "arrived")
+      WorkOrder.new(assignment: @assignment, status: "arrived").save!
+    end
     redirect_to assignments_path
   end
 

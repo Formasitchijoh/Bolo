@@ -1,0 +1,16 @@
+<div>
+  <h1>Work Order Details</h1>
+  <div class="card">
+    <p><strong>Task: </strong> <%= @work_order.assignment.job.title %> </p>
+    <p><strong>Details: </strong> <%= @work_order.assignment.job.details %> </p>
+    <p><strong>Created At:</strong> <%= @work_order.created_at %></p>
+    <p><strong>Status:</strong> <%= @work_order.status %></p>
+    <p><strong>Client: </strong> <%= @work_order.assignment.job.customer.user.first_name %> <%= @work_order.assignment.job.customer.user.last_name %> </p>
+    <p><strong>Technician: </strong> <%= @work_order.assignment.technician.user.first_name %> <%= @work_order.assignment.technician.user.last_name %> </p>
+
+    <div class="position-right">
+        <%= link_to "Add Line Item", new_line_item_path(@work_order), class: "button" %>
+        <%= button_to "Start Work", start_work_order_path(@work_order), method: :patch, class: "button button-secondary" %>
+    </div>
+  </div>
+</div>

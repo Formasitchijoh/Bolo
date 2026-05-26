@@ -1,0 +1,12 @@
+<div>
+  <h1>Work Orders</h1>
+  <ul>
+    <% @work_orders.each do |work_order| %>
+      <li>
+        <%= link_to work_order.id, work_order_details_path(work_order) %>
+        - Created at: <%= work_order.created_at %>
+        - Status: <%= work_order.status %>
+      </li>
+    <% end %>
+  </ul>
+</div>
