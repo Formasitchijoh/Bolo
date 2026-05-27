@@ -60,7 +60,7 @@ class JobMatchingService
     )
   end
 
-  # Haversine formula to calculate distance between two point on the globe using lat/lon 
+  # Haversine formula to calculate distance between two point on the globe using lat/lon
   # https://medium.com/@mattgazzano/the-haversine-formula-a-must-have-for-geospatial-reporting-1a1258552a5e
   def distance_in_km(lat_job, lon_job, lat_tech, lon_tech)
     rad_per_deg = Math::PI / 180
