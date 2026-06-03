@@ -4,6 +4,9 @@ class LineItemsController < ApplicationController
   # Always important to set the model you are about to use
   before_action :set_work_order
 
+  def index
+    @line_items = @work_order.line_items
+  end
   def new
     @line_item = LineItem.new
   end
@@ -26,7 +29,12 @@ class LineItemsController < ApplicationController
 
   private
 
+  # IMPORTANT: Missed this on first try, I was concerned on how to get the work order to use so I wanted to pass it to the query params 
+  # It did not come easy
   def set_work_order
+    # This is important because for the current users session if it is a technician we want to
+    # Querry the association between techncian and workorder and return all workorders that this technician started
+    #  and which matches this exact work_order_id we have from our params
     @work_order = current_user.technician.work_orders.find(params[:work_order_id])
   end
 

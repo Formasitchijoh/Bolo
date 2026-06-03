@@ -16,6 +16,7 @@
     <% if current_user.technician? %>
       <li><%= link_to "Assignments", assignments_path, class: "sidebar-link" %></li>
       <li><%= link_to "My Profile", edit_technician_profile_path, class: "sidebar-link" %></li>
+      <li><%= link_to "Work Orders", work_orders_path, class: "sidebar-link" %></li>
     <% end %>
 
     <% if current_user.dispatcher? || current_user.company_admin? %>

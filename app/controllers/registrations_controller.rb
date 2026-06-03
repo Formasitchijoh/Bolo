@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  # before_action is a controller calllback that runs before specified actions
+  # In this case, it ensured that only guests (Users who are not logged in) can access the new and create actions
   before_action :require_guest, only: [ :new, :create ]
 
   def new

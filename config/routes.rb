@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   patch "work_orders/:id/complete" => "work_orders#work_order_completed", as: :complete_work_order
 
   # Line Items — nested under work orders so work_order_id is always in params
+  get    "work_orders/:work_order_id/line_items"  => "line_items#index",     as: :line_items
   get    "work_orders/:work_order_id/line_items/new"  => "line_items#new",     as: :new_line_item
   post   "work_orders/:work_order_id/line_items"      => "line_items#create",  as: :create_new_line_item
   delete "work_orders/:work_order_id/line_items/:id"  => "line_items#destroy", as: :line_item_destroy

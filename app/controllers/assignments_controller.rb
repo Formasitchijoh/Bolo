@@ -1,6 +1,8 @@
 class AssignmentsController < ApplicationController
   before_action :require_login
   before_action :require_technician
+  # Sample controller callbacks which will
+  # Only be called for the listed actions in the array
   before_action :set_assignment, only: [ :accept, :reject, :en_route, :arrived ]
 
   def index

@@ -10,8 +10,13 @@
 
     <div class="position-right">
       <%# By Nesting line item in work order on passing the @workorder to the route it exstracts the work_order_id and passes it as a params to the request which can be assesd in the controller  %>
+        <%= link_to "Related Line Items", line_items_path(@work_order)%>
         <%= link_to "Add Line Item", new_line_item_path(@work_order), class: "button" %>
+        <% if @work_order.status === 'in_progress'%>
+          <%= button_to "Stop Work", complete_work_order_path(@work_order), method: :patch, class: "button button-stop " %>
+        <% else %>
         <%= button_to "Start Work", start_work_order_path(@work_order), method: :patch, class: "button button-secondary" %>
+        <% end %>
     </div>
   </div>
 </div>

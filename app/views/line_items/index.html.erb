@@ -1,5 +1,10 @@
 <div>
     <% @line_items&.each do |item| %>
-        <p><%= item.details %></p>
+        <ul>
+            <li>
+                <p> <strong>Description:</strong> <%= item.description %></p>
+                <p> <strong>Amount:</strong> <%= item.amount %></p>
+            </li>
+        </ul>
     <% end %>
 </div>

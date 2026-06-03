@@ -18,6 +18,7 @@ class JobsController < ApplicationController
     # This is possible because of the association we have between the Job and the Address models
     # Think of it like assigning an instance of Address to a variable in Job whose type is Address,
     #  And so the assignment will work since they are of the similar type and the address will be saved on saving the job
+    # Splatiing more of like spreeading the attributes of the job_params into the new instance of job 
     @job = Job.new(address: @address, **job_params())
     # Get the current user from session to prevent Malicious user submitting any customer_id
     # And creating Jobs on behalf of the customer
@@ -32,6 +33,8 @@ class JobsController < ApplicationController
   private
 
   def set_form_data
+    # TODO: check why you are using .all here and if you can use a more efficient query
+    # To get only the required data
     @job_categories = JobCategory.all
     @companies = Company.all
   end

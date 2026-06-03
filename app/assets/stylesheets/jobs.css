@@ -46,6 +46,14 @@
     color: #003153;
     border: 1px solid #003153;
 }
+.button-stop {
+    background-color: #a71d1d;
+    border: 1px solid #ced6dc;
+}
+.button-stop:hover {
+    background-color: #f26565;
+    border: 1px solid #ced6dc;
+}
 
 .button-secondary:hover {
     background-color: #003153;
