@@ -1,100 +1,155 @@
+/* ─── Layout ─────────────────────────────────────────────────────── */
+
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: var(--container-md);
+  margin: 0 auto;
+  padding: var(--space-6);
 }
+
+/* ─── Job Cards ──────────────────────────────────────────────────── */
 
 .job-card {
-    display: flow-root;
-    flex-direction: column;
-    gap: 1rem;
-    border: 1px solid #1a1a2e ;
-    border-radius: 0.5rem;
-    margin: 1rem;
-    padding: 0.5rem;
-    width: 100%;
-    cursor: pointer;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
 }
 
+.job-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.job-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.job-card h2 {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+}
+
+.job-card .details {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-3);
+}
+
+.job-card .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.job-card .meta strong {
+  color: var(--color-text);
+}
+
+.job-card-media {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.job-card-media img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
 
 .job-actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.button {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: white;
-    background-color: #003153;
-    text-decoration: none;
-    display: inline-block;
-    margin-inline-start: 0.5rem;
-}
-
-.button:hover {
-    background-color: #004a7c;
-}
-
-.button-secondary {
-    background-color: transparent;
-    color: #003153;
-    border: 1px solid #003153;
-}
-.button-stop {
-    background-color: #a71d1d;
-    border: 1px solid #ced6dc;
-}
-.button-stop:hover {
-    background-color: #f26565;
-    border: 1px solid #ced6dc;
-}
-
-.button-secondary:hover {
-    background-color: #003153;
-    color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
 }
 
 .username {
-    font-size: 0.8rem;
-    color: #1a1a2e;
-    margin-block-start: 0.5rem;
-    margin-block-end: 0.5rem;
-    display: inline-block;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
 }
-.details {
-    font-size: 1rem;
-    color: #1f1f21;
+
+/* ─── Job Form ───────────────────────────────────────────────────── */
+
+.location-field {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.location-form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.location-form-group label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+}
+
+.location-form-group input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  box-sizing: border-box;
+}
+
+.location-status {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: var(--space-4);
 }
 
 .cta-button {
-    padding: 0.2rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: white;
-    background-color: #1a1a2e;
-    margin-top: 1rem;
-}
-.location-field {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    width: 64%;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--transition-fast);
 }
 
-.location-field button {
-    width: 20%;
+.cta-button:hover {
+  background-color: var(--color-primary-hover);
 }
 
 .details-container {
-    max-width: 65%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ─── Claim Window ───────────────────────────────────────────────── */
+
+.claim-window {
+  font-size: var(--text-sm);
+  color: var(--color-warning);
+  font-weight: var(--font-medium);
+  margin-bottom: var(--space-3);
 }

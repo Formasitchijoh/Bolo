@@ -4,11 +4,9 @@
   --color-primary-hover:  #004a7c;
   --color-primary-light:  #e8f0f7;
 
-  --color-secondary-bg:       transparent;
-  --color-secondary-border:   #003153;
-  --color-secondary-text:     #003153;
-  --color-secondary-hover-bg: #003153;
-  --color-secondary-hover-text: #ffffff;
+  --color-secondary-bg:     transparent;
+  --color-secondary-border: #003153;
+  --color-secondary-text:   #003153;
 
   /* ─── Semantic Colours ──────────────────────────── */
   --color-success:        #10B981;

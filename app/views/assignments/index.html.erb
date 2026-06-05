@@ -8,7 +8,7 @@
       <div class="job-card">
         <div class="job-card-header">
           <h2><%= assignment.job.title %></h2>
-          <span class="status-badge status-<%= assignment.status %>"><%= assignment.status.humanize %></span>
+          <%= status_badge(assignment.status) %>
         </div>
 
         <p class="details"><%= assignment.job.details %></p>

@@ -4,7 +4,7 @@
     <p><strong>Task: </strong> <%= @work_order.assignment.job.title %> </p>
     <p><strong>Details: </strong> <%= @work_order.assignment.job.details %> </p>
     <p><strong>Created At:</strong> <%= @work_order.created_at %></p>
-    <p><strong>Status:</strong> <%= @work_order.status %></p>
+    <p><strong>Status:</strong> <%= status_badge(@work_order.status) %></p>
     <p><strong>Client: </strong> <%= @work_order.assignment.job.customer.user.first_name %> <%= @work_order.assignment.job.customer.user.last_name %> </p>
     <p><strong>Technician: </strong> <%= @work_order.assignment.technician.user.first_name %> <%= @work_order.assignment.technician.user.last_name %> </p>
 
