@@ -53,6 +53,12 @@
     <%= form.hidden_field :latitude, data: { location_target: "latitude" } %>
     <%= form.hidden_field :longitude, data: { location_target: "longitude" } %>
 
+    <% @job.media.each do |image| %>
+       <%= form.hidden_field :media, multiple: true, value: image.signed_id %>
+    <% end %>
+
+    <%= form.file_field :media, multiple: true %>
+
     <div class="button-container">
       <button class="button" type="submit">
          <%= form.submit "Post Job", class: "button" %>

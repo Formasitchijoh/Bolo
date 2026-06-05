@@ -4,6 +4,7 @@ class Job < ApplicationRecord
   belongs_to :job_category
   has_one :address, as: :addressable, dependent: :destroy
   has_many :assignments, dependent: :destroy
+  has_many_attached :media
   validates :details, presence: true
   validates :title, presence: true
   validates :price_range_min, presence: true, numericality: { greater_than_or_equal_to: 0 }

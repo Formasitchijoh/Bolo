@@ -8,5 +8,11 @@
         <h2><%= job.title%></h2>
         <span class="username">By: <%= job.customer.user.first_name %> <%= job.customer.user.last_name %></span>
         <p class="details"><%= job.details %></p>
+        <% job.media.each do |file| %>
+            <li>
+                <%= image_tag file %>
+            </li>
+        <% end %>
+
     </div>
 <% end %>

@@ -4,5 +4,6 @@ class WorkOrder < ApplicationRecord
   has_one :rating, dependent: :destroy
   has_many :line_items, dependent: :destroy
   has_one :payment, dependent: :destroy
+  has_many_attached :media
   validates :status, inclusion: { in: %w[on_hold en_route arrived in_progress incomplete completed cancelled] }
 end

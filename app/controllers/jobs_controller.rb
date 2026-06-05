@@ -6,7 +6,8 @@ class JobsController < ApplicationController
 
 
   def index
-    @jobs = Job.where(customer_id: current_user&.customer&.id)
+    # Eager loading media attachments to prevent N+1 query problem when displaying jobs with media in the view
+    @jobs = Job.where(customer_id: current_user&.customer&.id).with_attached_media.order(created_at: :desc)
   end
 
   def new
@@ -40,7 +41,7 @@ class JobsController < ApplicationController
   end
 
   def job_params
-    params.require(:job).permit(:company_id, :job_category_id, :title, :latitude, :longitude, :details, :media, :price_range_min, :price_range_max)
+    params.require(:job).permit(:company_id, :job_category_id, :title, :latitude, :longitude, :details, :price_range_min, :price_range_max, media: [])
   end
   def address_params
     params.require(:address).permit(:address, :latitude, :longitude)
