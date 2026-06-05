@@ -19,52 +19,63 @@
 .auth-form {
     width: 50%;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-form form {
+    width: 50%;
 }
 .form-group, .location-form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 0.5rem;
-    gap: 5px;
-}
-.form-group input, .form-group select {
-    width: 60%;
-    height: 20px;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-bottom: var(--space-4);
+    gap: var(--space-2);
 }
 
-.form-group select {
-    height: 40px;
-    padding: 0px;
-    width: 63%;
-
+.form-group input,
+.form-group select,
+.location-form-group input {
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    box-sizing: border-box;
+    height: auto;
 }
 
-.location-form-group input{
-    width: 180%;
-    height: 20px;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.form-group input:focus,
+.form-group select:focus,
+.location-form-group input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
 }
 .auth-form input[type="submit"] {
-    width: 30%;
-    padding: 0.5rem;
-    background-color: #007bff;
-    color: white;
+    width: 100%;
+    padding: var(--space-2) var(--space-6);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
 }
+
 .auth-form input[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: var(--color-primary-hover);
 }
 
 .button-container {
     display: flex;
     justify-content: center;
-    width: 70%;
+    width: 100%;
     margin-top: 1rem;
 }
 
@@ -74,28 +85,18 @@
         flex-direction: column;
         height: 100%;
     }
+
     .auth-image {
         display: none;
     }
+
     .auth-form {
         width: 100%;
-        display: flex;
-        flex-direction: column;
+        padding: var(--space-8) var(--space-6);
         align-items: center;
-        padding: 1rem;
-        max-height: 100vh;
-    }
-    .form-group input, .form-group select {
-      width: 100%;
     }
 
-    .form-group select {
-        width: 108%;
-
+    .auth-form form {
+        width: 85%;
     }
-
-    .auth-form input[type="submit"] {
-        width: 80%;
-    }
-    
 }

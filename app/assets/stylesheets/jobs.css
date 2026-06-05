@@ -6,6 +6,12 @@
   padding: var(--space-6);
 }
 
+.form-container {
+  max-width: var(--container-form);
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
 /* ─── Job Cards ──────────────────────────────────────────────────── */
 
 .job-card {

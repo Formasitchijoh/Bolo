@@ -92,6 +92,7 @@
   /* ─── Layout ────────────────────────────────────── */
   --sidebar-width:    240px;
   --navbar-height:    60px;
+  --container-form:   calc((100vw - var(--sidebar-width)) / 3);
   --container-sm:     640px;
   --container-md:     768px;
   --container-lg:     1024px;
