@@ -8,3 +8,6 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* variables.css must load first — all other files depend on these custom properties */
+@import "variables.css";
