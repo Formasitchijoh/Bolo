@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_04_044057) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_05_102133) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -66,6 +66,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_044057) do
     t.index ["company_id"], name: "index_assignments_on_company_id"
     t.index ["job_id"], name: "index_assignments_on_job_id"
     t.index ["technician_id"], name: "index_assignments_on_technician_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "commentable_id", null: false
+    t.string "commentable_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -295,6 +306,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_044057) do
   add_foreign_key "assignments", "companies"
   add_foreign_key "assignments", "jobs"
   add_foreign_key "assignments", "technicians"
+  add_foreign_key "comments", "users"
   add_foreign_key "companies", "tenants"
   add_foreign_key "customers", "users"
   add_foreign_key "jobs", "customers"
