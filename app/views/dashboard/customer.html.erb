@@ -1,24 +1,73 @@
-<div class="dashboard-header">
-  <h1>Welcome back, <%= current_user.first_name %></h1>
-  <p class="dashboard-subtitle">Here's what's happening with your jobs.</p>
-</div>
+<div class="dashboard">
+  <%# <div class="dashboard-header">
+    <h1>Hello,  current_user.first_name</h1>
+     link_to "Post a Job", new_job_path, class: "button" 
+  </div> %>
 
-<div class="kpi-grid">
-  <div class="kpi-card">
-    <span class="kpi-number"><%= @total_jobs %></span>
-    <span class="kpi-label">Jobs Posted</span>
+  <div class="dashboard-search">
+    <div class="dashboard-search-wrapper">
+      <svg class="dashboard-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" class="dashboard-search-input" placeholder="Search jobs...">
+    </div>
   </div>
-  <div class="kpi-card kpi-card--active">
-    <span class="kpi-number"><%= @active_jobs %></span>
-    <span class="kpi-label">Active Jobs</span>
-  </div>
-  <div class="kpi-card kpi-card--success">
-    <span class="kpi-number"><%= @completed_jobs %></span>
-    <span class="kpi-label">Completed</span>
-  </div>
-</div>
 
-<div class="dashboard-actions">
-  <%= link_to "Post a New Job", "/jobs/new", class: "button" %>
-  <%= link_to "View All Jobs", "/jobs", class: "button button-secondary" %>
+  <% if @active_jobs.any? %>
+    <section class="dashboard-section">
+      <h2 class="section-title">Active Jobs</h2>
+      <% @active_jobs.each do |job| %>
+        <div class="status-card">
+          <div class="status-card-top">
+            <div>
+              <p class="status-card-title"><%= job.title %></p>
+              <p class="status-card-meta"><%= job.job_category.name %></p>
+            </div>
+            <%= status_badge(job.status) %>
+          </div>
+
+          <p class="status-card-description"><%= truncate(job.details, length: 120, omission: "") %></p>
+
+          <% latest_assignment = job.assignments.max_by(&:created_at) %>
+          <% if latest_assignment %>
+            <div class="status-card-assignment">
+              <p class="status-card-meta">
+                Technician: <strong><%= latest_assignment.technician.user.first_name %></strong>
+              </p>
+              <%= status_badge(latest_assignment.status) %>
+            </div>
+          <% else %>
+            <p class="status-card-meta muted">Finding a technician...</p>
+          <% end %>
+
+          <p class="status-card-price">
+            FCFA <%= number_with_delimiter(job.price_range_min.to_i) %> – <%= number_with_delimiter(job.price_range_max.to_i) %>
+          </p>
+        </div>
+      <% end %>
+    </section>
+  <% else %>
+    <div class="empty-state">
+      <p>No active jobs right now.</p>
+      <%= link_to "Post your first job", new_job_path, class: "button" %>
+    </div>
+  <% end %>
+
+  <% if @recent_jobs.any? %>
+    <section class="dashboard-section">
+      <div class="section-header">
+        <h2 class="section-title">Recent</h2>
+        <%= link_to "See all", jobs_path, class: "section-link" %>
+      </div>
+      <% @recent_jobs.each do |job| %>
+        <div class="status-card status-card--muted">
+          <div class="status-card-top">
+            <p class="status-card-title"><%= job.title %></p>
+            <%= status_badge(job.status) %>
+          </div>
+          <p class="status-card-meta"><%= job.job_category.name %></p>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
 </div>

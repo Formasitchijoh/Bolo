@@ -6,8 +6,10 @@ class JobsController < ApplicationController
 
 
   def index
-    # Eager loading media attachments to prevent N+1 query problem when displaying jobs with media in the view
-    @jobs = Job.where(customer_id: current_user&.customer&.id).with_attached_media.order(created_at: :desc)
+    @jobs = Job.where(customer_id: current_user.customer.id)
+               .includes(:job_category)
+               .with_attached_media
+               .order(created_at: :desc)
   end
 
   def new
@@ -27,6 +29,7 @@ class JobsController < ApplicationController
     if @job.save
       redirect_to jobs_path, notice: "Job created successfully"
     else
+      puts @job.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end

@@ -1,27 +1,80 @@
-<div class="dashboard-header">
-  <h1>Welcome back, <%= current_user.first_name %></h1>
-  <p class="dashboard-subtitle">Your assignment overview.</p>
-</div>
+<div class="dashboard">
+  <%# <div class="dashboard-header">
+    <h1>Hello, current_user.first_name </h1>
+     link_to "Edit Profile", edit_technician_profile_path, class: "button button-secondary" 
+  </div> %>
 
-<div class="kpi-grid">
-  <div class="kpi-card">
-    <span class="kpi-number"><%= @total_assignments %></span>
-    <span class="kpi-label">Total Assignments</span>
+  <div class="dashboard-search">
+    <div class="dashboard-search-wrapper">
+      <svg class="dashboard-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" class="dashboard-search-input" placeholder="Search assignments...">
+    </div>
   </div>
-  <div class="kpi-card kpi-card--alert">
-    <span class="kpi-number"><%= @pending_assignments %></span>
-    <span class="kpi-label">Pending</span>
-  </div>
-  <div class="kpi-card kpi-card--active">
-    <span class="kpi-number"><%= @active_assignments %></span>
-    <span class="kpi-label">Active</span>
-  </div>
-  <div class="kpi-card kpi-card--success">
-    <span class="kpi-number"><%= @completed_work_orders %></span>
-    <span class="kpi-label">Completed</span>
-  </div>
-</div>
 
-<div class="dashboard-actions">
-  <%= link_to "View Assignments", assignments_path, class: "button" %>
+  <% if @pending_assignment %>
+    <section class="dashboard-section">
+      <h2 class="section-title">New Job Request</h2>
+      <div class="status-card">
+        <div class="status-card-top">
+          <div>
+            <p class="status-card-title"><%= @pending_assignment.job.title %></p>
+            <p class="status-card-meta"><%= @pending_assignment.job.job_category.name %></p>
+          </div>
+          <%= status_badge(@pending_assignment.status) %>
+        </div>
+        <p class="status-card-meta">
+          Respond before: <strong><%= @pending_assignment.claim_window.strftime("%H:%M") %></strong>
+        </p>
+        <p class="status-card-price">
+          FCFA <%= number_with_delimiter(@pending_assignment.job.price_range_min.to_i) %> – <%= number_with_delimiter(@pending_assignment.job.price_range_max.to_i) %>
+        </p>
+        <div class="button-container">
+          <%= button_to "Accept", accept_assignment_path(@pending_assignment), method: :patch, class: "button" %>
+          <%= button_to "Reject", reject_assignment_path(@pending_assignment), method: :patch, class: "button button-secondary" %>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
+  <% if @active_assignment %>
+    <section class="dashboard-section">
+      <h2 class="section-title">Current Job</h2>
+      <div class="status-card">
+        <div class="status-card-top">
+          <div>
+            <p class="status-card-title"><%= @active_assignment.job.title %></p>
+            <p class="status-card-meta"><%= @active_assignment.job.job_category.name %></p>
+          </div>
+          <%= status_badge(@active_assignment.status) %>
+        </div>
+
+        <% if @active_assignment.status == "assigned" %>
+          <div class="button-container">
+            <%= button_to "I'm on my way", en_route_path(@active_assignment), method: :patch, class: "button" %>
+          </div>
+        <% elsif @active_assignment.status == "en_route" %>
+          <div class="button-container">
+            <%= button_to "I've arrived", arrived_path(@active_assignment), method: :patch, class: "button" %>
+          </div>
+        <% elsif @active_assignment.status == "arrived" %>
+          <div class="button-container">
+            <%= link_to "Open Work Order", work_order_details_path(@active_assignment.work_order), class: "button" %>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
+  <% if @pending_assignment.nil? && @active_assignment.nil? %>
+    <div class="empty-state">
+      <p>No active jobs right now.</p>
+      <p>We will notify you when a job comes in.</p>
+    </div>
+  <% end %>
+
+  <div class="dashboard-actions">
+    <%= link_to "All Assignments", assignments_path, class: "button button-secondary" %>
+  </div>
 </div>

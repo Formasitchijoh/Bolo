@@ -12,7 +12,59 @@
   padding: var(--space-6);
 }
 
+/* ─── Jobs Grid ──────────────────────────────────────────────────── */
+
+.jobs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .jobs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* ─── Job Cards ──────────────────────────────────────────────────── */
+
+.job-card-meta-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.job-card-time {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.job-card-dot {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.job-card-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-primary);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-1);
+}
+
+.job-card-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.job-card-description {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-3);
+}
 
 .job-card {
   background-color: var(--color-surface);
@@ -68,9 +120,10 @@
   margin-bottom: var(--space-4);
 }
 
-.job-card-media img {
-  width: 80px;
-  height: 80px;
+.job-card-media img,
+.job-card-thumb {
+  width: 72px;
+  height: 72px;
   object-fit: cover;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
@@ -95,8 +148,21 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  gap: var(--space-4);
+  gap: var(--space-3);
   margin-bottom: var(--space-5);
+}
+
+.location-field .location-form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.location-field .cta-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: var(--space-2) var(--space-4);
+  margin: 0;
+  line-height: var(--leading-normal);
 }
 
 .location-form-group {
@@ -149,6 +215,39 @@
 .details-container {
   width: 100%;
   box-sizing: border-box;
+}
+
+/* ─── File Preview ───────────────────────────────────────────────── */
+
+.preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.preview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  width: 80px;
+}
+
+.preview-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.preview-name {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  word-break: break-all;
+  max-width: 80px;
 }
 
 /* ─── Claim Window ───────────────────────────────────────────────── */

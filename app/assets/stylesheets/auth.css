@@ -1,15 +1,16 @@
 .auth-container {
     display: flex;
-    flex-direction:row;
+    flex-direction: column;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
     align-items: center;
-    background-color: #f5f5f5;
+    background-color: var(--color-background);
 }
+
 .auth-image {
-    width: 50%;
-    height: 100%;
+    display: none;
 }
+
 .auth-image img {
     width: 100%;
     height: 100%;
@@ -17,8 +18,8 @@
 }
 
 .auth-form {
-    width: 50%;
-    padding: 2rem;
+    width: 100%;
+    padding: var(--space-8) var(--space-6);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,7 +27,7 @@
 }
 
 .auth-form form {
-    width: 50%;
+    width: 85%;
 }
 .form-group, .location-form-group {
     display: flex;
@@ -43,10 +44,21 @@
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     font-size: var(--text-base);
+    font-family: var(--font-family);
     color: var(--color-text);
     background-color: var(--color-surface);
     box-sizing: border-box;
     height: auto;
+    line-height: var(--leading-normal);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-3) center;
+    padding-right: var(--space-8);
 }
 
 .form-group input:focus,
@@ -79,24 +91,23 @@
     margin-top: 1rem;
 }
 
-@media (max-width: 720px) {
+@media (min-width: 768px) {
     .auth-container {
-        width: 100%;
-        flex-direction: column;
-        height: 100%;
+        flex-direction: row;
+        height: 100vh;
     }
 
     .auth-image {
-        display: none;
+        display: block;
+        width: 50%;
+        height: 100%;
     }
 
     .auth-form {
-        width: 100%;
-        padding: var(--space-8) var(--space-6);
-        align-items: center;
+        width: 50%;
     }
 
     .auth-form form {
-        width: 85%;
+        width: 50%;
     }
 }

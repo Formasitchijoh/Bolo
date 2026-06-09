@@ -1,5 +1,6 @@
 module ApplicationHelper
   STATUS_BADGE_MAP = {
+    "available"   => "badge-available",
     "pending"     => "badge-pending",
     "assigned"    => "badge-assigned",
     "en_route"    => "badge-en-route",

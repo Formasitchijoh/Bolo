@@ -64,6 +64,7 @@
   text-transform: uppercase;
 }
 
+.badge-available { background-color: var(--color-success-light);  color: #065f46; }
 .badge-pending   { background-color: var(--color-warning-light);  color: #92400e; }
 .badge-assigned  { background-color: var(--color-info-light);     color: #1e40af; }
 .badge-en-route  { background-color: var(--color-info-light);     color: #1e40af; }
@@ -181,4 +182,5 @@
   display: flex;
   gap: var(--space-3);
   align-items: center;
+  justify-content: flex-end;
 }

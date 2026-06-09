@@ -29,35 +29,41 @@
     <div class="location-field">
 
       <div class="location-form-group">
-        <%= form.label :address, "Job Location" %>
-        <%= form.text_field :address,
+        <%= label_tag :address, "Job Location" %>
+        <%= text_field_tag :address, nil,
               data: {
                 location_target: "address",
-                action: "blur->location#searchAddress"
+                action: "input->location#searchAddress"
               },
-              placeholder: "Type address and click away to search" %>
+              placeholder: "Enter your Address" %>
       </div>
         <button class="cta-button" type="button"
                 data-action="click->location#useCurrentLocation">
           Use my location
         </button>
     </div>
+    <span data-location-target="status" class="location-status"></span>
 
     <div class="form-group ">
       <%= form.label :details, "Job Details" %>
       <%= form.text_area :details, rows: 4, class: "details-container", placeholder: "Describe the job in detail..." %>
     </div>
 
-    <span data-location-target="status" class="location-status"></span>
 
     <%= form.hidden_field :latitude, data: { location_target: "latitude" } %>
     <%= form.hidden_field :longitude, data: { location_target: "longitude" } %>
 
-    <% @job.media.each do |image| %>
-       <%= form.hidden_field :media, multiple: true, value: image.signed_id %>
-    <% end %>
-
-    <%= form.file_field :media, multiple: true %>
+    <div class="form-group" data-controller="file-preview">
+      <%= form.label :media, "Photos" %>
+      <%= form.file_field :media,
+            multiple: true,
+            accept: "image/*",
+            data: {
+              file_preview_target: "input",
+              action: "change->file-preview#show"
+            } %>
+      <div data-file-preview-target="preview" class="preview-grid"></div>
+    </div>
 
     <div class="button-container">
       <button class="button" type="submit">

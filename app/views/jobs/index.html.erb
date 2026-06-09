@@ -1,18 +1,41 @@
-<div class="job-actions">
-    <button class="button">
-         <%= link_to "Post New Job", jobs_new_path, class: "button" %>
-    </button>
-</div>
-<% @jobs.each  do |job| %>
-    <div class="job-card">
-        <h2><%= job.title%></h2>
-        <span class="username">By: <%= job.customer.user.first_name %> <%= job.customer.user.last_name %></span>
-        <p class="details"><%= job.details %></p>
-        <% job.media.each do |file| %>
-            <li>
-                <%= image_tag file %>
-            </li>
-        <% end %>
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1>My Jobs</h1>
+    <%= link_to "Post a Job", new_job_path, class: "button" %>
+  </div>
 
+  <% if @jobs.empty? %>
+    <div class="empty-state">
+      <p>You have not posted any jobs yet.</p>
+      <%= link_to "Post your first job", new_job_path, class: "button" %>
     </div>
-<% end %>
+  <% else %>
+    <div class="jobs-grid">
+    <% @jobs.each do |job| %>
+      <div class="status-card">
+        <div class="job-card-meta-top">
+          <span class="job-card-time">Posted <%= time_ago_in_words(job.created_at) %> ago</span>
+          <span class="job-card-dot">&middot;</span>
+          <%= status_badge(job.status) %>
+        </div>
+
+        <p class="job-card-title"><%= job.title %></p>
+
+        <p class="job-card-subtitle">
+          <%= job.job_category.name %> &middot; FCFA <%= number_with_delimiter(job.price_range_min.to_i) %> – <%= number_with_delimiter(job.price_range_max.to_i) %>
+        </p>
+
+        <p class="job-card-description"><%= truncate(job.details, length: 200) %></p>
+
+        <% if job.media.attached? %>
+          <div class="job-card-media">
+            <% job.media.first(3).each do |file| %>
+              <%= image_tag file, class: "job-card-thumb" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+</div>

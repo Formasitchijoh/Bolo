@@ -1,0 +1,31 @@
+<nav class="bottom-nav">
+  <% if current_user.customer? %>
+    <%= link_to dashboard_path, class: "bottom-nav-item #{current_page?(dashboard_path) ? 'active' : ''}" do %>
+      <span class="bottom-nav-icon">&#8962;</span>
+      <span>Home</span>
+    <% end %>
+    <%= link_to new_job_path, class: "bottom-nav-item #{current_page?(new_job_path) ? 'active' : ''}" do %>
+      <span class="bottom-nav-icon">&#43;</span>
+      <span>New Job</span>
+    <% end %>
+    <%= link_to jobs_path, class: "bottom-nav-item #{current_page?(jobs_path) ? 'active' : ''}" do %>
+      <span class="bottom-nav-icon">&#9783;</span>
+      <span>My Jobs</span>
+    <% end %>
+  <% end %>
+
+  <% if current_user.technician? %>
+    <%= link_to dashboard_path, class: "bottom-nav-item #{current_page?(dashboard_path) ? 'active' : ''}" do %>
+      <span class="bottom-nav-icon">&#8962;</span>
+      <span>Home</span>
+    <% end %>
+    <%= link_to assignments_path, class: "bottom-nav-item #{current_page?(assignments_path) ? 'active' : ''}" do %>
+      <span class="bottom-nav-icon">&#9745;</span>
+      <span>Assignments</span>
+    <% end %>
+    <%= link_to work_orders_path, class: "bottom-nav-item #{current_page?(work_orders_path) ? 'active' : ''}" do %>
+      <span class="bottom-nav-icon">&#9998;</span>
+      <span>Work Orders</span>
+    <% end %>
+  <% end %>
+</nav>

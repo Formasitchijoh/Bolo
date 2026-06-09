@@ -5,28 +5,28 @@
 
   <ul class="sidebar-nav">
     <li>
-      <%= link_to "Dashboard", dashboard_path, class: "sidebar-link" %>
+      <%= link_to "Dashboard", dashboard_path, class: "sidebar-link #{"active" if current_page?(dashboard_path)}" %>
     </li>
 
     <% if current_user.customer? %>
-      <li><%= link_to "Post a Job", "/jobs/new", class: "sidebar-link" %></li>
-      <li><%= link_to "My Jobs", "/jobs", class: "sidebar-link" %></li>
+      <li><%= link_to "My Jobs", jobs_path, class: "sidebar-link #{"active" if current_page?(jobs_path)}" %></li>
+      <li><%= link_to "New Job", new_job_path, class: "sidebar-link #{"active" if current_page?(new_job_path)}" %></li>
     <% end %>
 
     <% if current_user.technician? %>
-      <li><%= link_to "Assignments", assignments_path, class: "sidebar-link" %></li>
-      <li><%= link_to "My Profile", edit_technician_profile_path, class: "sidebar-link" %></li>
-      <li><%= link_to "Work Orders", work_orders_path, class: "sidebar-link" %></li>
+      <li><%= link_to "Assignments", assignments_path, class: "sidebar-link #{"active" if current_page?(assignments_path)}" %></li>
+      <li><%= link_to "Work Orders", work_orders_path, class: "sidebar-link #{"active" if current_page?(work_orders_path)}" %></li>
+      <li><%= link_to "My Profile", edit_technician_profile_path, class: "sidebar-link #{"active" if current_page?(edit_technician_profile_path)}" %></li>
     <% end %>
 
     <% if current_user.dispatcher? || current_user.company_admin? %>
-      <li><%= link_to "Jobs Board", "/jobs", class: "sidebar-link" %></li>
-      <li><%= link_to "Assignments", assignments_path, class: "sidebar-link" %></li>
+      <li><%= link_to "Jobs Board", jobs_path, class: "sidebar-link #{"active" if current_page?(jobs_path)}" %></li>
+      <li><%= link_to "Assignments", assignments_path, class: "sidebar-link #{"active" if current_page?(assignments_path)}" %></li>
     <% end %>
   </ul>
 
   <div class="sidebar-footer">
-    <span class="sidebar-user"><%= current_user.first_name %> <%= current_user.last_name %></span>
     <%= link_to "Logout", logout_path, class: "sidebar-logout", data: { turbo_method: :delete } %>
   </div>
+
 </nav>

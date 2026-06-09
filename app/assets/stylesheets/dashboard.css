@@ -1,51 +1,158 @@
+.dashboard {
+  max-width: var(--container-md);
+  margin: 0 auto;
+}
+
 .dashboard-header {
-  margin-bottom: 2rem;
-}
-
-.dashboard-subtitle {
-  font-size: 0.95rem;
-  color: #64748b;
-  margin-top: 0.25rem;
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1.25rem;
-  margin-bottom: 2rem;
-}
-
-.kpi-card {
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 1.5rem;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  border-left: 4px solid #003153;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
 }
 
-.kpi-card--alert   { border-left-color: #e53e3e; }
-.kpi-card--active  { border-left-color: #3182ce; }
-.kpi-card--success { border-left-color: #38a169; }
+/* ─── Search ─────────────────────────────────────────────────────── */
 
-.kpi-number {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1a1a2e;
-  line-height: 1;
+.dashboard-search {
+  position: sticky;
+  top: var(--navbar-height);
+  background-color: var(--color-background);
+  padding: var(--space-3) 0;
+  margin-bottom: var(--space-6);
+  z-index: 10;
 }
 
-.kpi-label {
-  font-size: 0.78rem;
-  color: #64748b;
+.dashboard-search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.dashboard-search-icon {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.dashboard-search-input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-10);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-family: var(--font-family);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  box-sizing: border-box;
+}
+
+.dashboard-search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* ─── Sections ───────────────────────────────────────────────────── */
+
+.dashboard-section {
+  margin-bottom: var(--space-6);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.section-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 500;
+  letter-spacing: var(--tracking-wider);
+  margin-bottom: var(--space-3);
 }
+
+.section-link {
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-medium);
+}
+
+/* ─── Status Cards ───────────────────────────────────────────────── */
+
+.status-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  box-shadow: var(--shadow-sm);
+}
+
+.status-card--urgent {
+  border-left: 4px solid var(--color-warning);
+}
+
+.status-card--muted {
+  background-color: var(--color-background);
+  box-shadow: none;
+}
+
+.status-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.status-card-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
+.status-card-description {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-3);
+}
+
+.status-card-meta {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.status-card-assignment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-background);
+  border-radius: var(--radius-sm);
+}
+
+.status-card-price {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+/* ─── Dashboard actions ──────────────────────────────────────────── */
 
 .dashboard-actions {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }
