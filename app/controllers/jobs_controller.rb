@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
   before_action :require_login
-  before_action :require_customer
-  before_action :set_form_data, only: [ :new, :create ]
+  before_action :require_customer, except: [:show]
+  before_action :set_form_data, only: [:new, :create]
 
 
 
@@ -10,6 +10,19 @@ class JobsController < ApplicationController
                .includes(:job_category)
                .with_attached_media
                .order(created_at: :desc)
+  end
+
+  def show
+    if current_user.customer?
+      @job = current_user.customer.jobs
+                         .includes(:job_category, :address, :assignments, media_attachments: :blob)
+                         .find(params[:id])
+    elsif current_user.technician?
+      @job = Job.joins(:assignments)
+                .where(assignments: { technician_id: current_user.technician.id })
+                .includes(:job_category, :address, media_attachments: :blob)
+                .find(params[:id])
+    end
   end
 
   def new

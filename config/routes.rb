@@ -10,9 +10,10 @@ Rails.application.routes.draw do
   get "dashboard" => "dashboard#index"
 
   # Jobs Routes
-  get  "jobs"     => "jobs#index",  as: :jobs
-  get  "jobs/new" => "jobs#new",    as: :new_job
-  post "jobs"     => "jobs#create"
+  get  "jobs"         => "jobs#index",  as: :jobs
+  get  "jobs/new"     => "jobs#new",    as: :new_job
+  post "jobs"         => "jobs#create"
+  get  "jobs/:id"     => "jobs#show",   as: :job
 
   # Technician Profile
   get   "technician/profile" => "technician_profiles#edit",   as: :edit_technician_profile

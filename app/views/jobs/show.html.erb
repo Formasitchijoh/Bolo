@@ -1,0 +1,51 @@
+<turbo-frame id="job-detail">
+  <div class="drawer-header">
+    <h2 class="drawer-title"><%= @job.title %></h2>
+    <button class="drawer-close" data-action="click->drawer#close">&times;</button>
+  </div>
+
+  <div class="drawer-body">
+    <div class="drawer-meta">
+      <%= status_badge(@job.status) %>
+      <span class="job-card-tag"><%= @job.job_category.name %></span>
+    </div>
+
+    <p class="drawer-description"><%= @job.details %></p>
+
+    <div class="drawer-section">
+      <p class="drawer-label">Budget</p>
+      <p class="drawer-value">FCFA <%= number_with_delimiter(@job.price_range_min.to_i) %> – <%= number_with_delimiter(@job.price_range_max.to_i) %></p>
+    </div>
+
+    <% if @job.address %>
+      <div class="drawer-section">
+        <p class="drawer-label">Location</p>
+        <p class="drawer-value"><%= @job.address.name %></p>
+      </div>
+    <% end %>
+
+    <% if @job.assignments.any? %>
+      <div class="drawer-section">
+        <p class="drawer-label">Technician</p>
+        <% latest = @job.assignments.max_by(&:created_at) %>
+        <div class="drawer-assignment">
+          <p class="drawer-value"><%= latest.technician.user.first_name %> <%= latest.technician.user.last_name %></p>
+          <%= status_badge(latest.status) %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @job.media.attached? %>
+      <div class="drawer-section">
+        <p class="drawer-label">Photos</p>
+        <div class="job-card-media">
+          <% @job.media.each do |file| %>
+            <%= image_tag file, class: "job-card-thumb" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <p class="drawer-timestamp">Posted <%= time_ago_in_words(@job.created_at) %> ago</p>
+  </div>
+</turbo-frame>

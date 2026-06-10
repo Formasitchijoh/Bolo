@@ -1,3 +1,10 @@
+<div class="drawer-container" data-controller="drawer">
+  <div class="drawer-overlay" data-action="click->drawer#close" data-drawer-target="overlay"></div>
+  <div class="drawer-panel" data-drawer-target="panel">
+    <turbo-frame id="job-detail" data-action="turbo:frame-load->drawer#open"></turbo-frame>
+  </div>
+</div>
+
 <div class="dashboard">
   <div class="dashboard-header">
     <h1>My Jobs</h1>
@@ -12,7 +19,7 @@
   <% else %>
     <div class="jobs-grid">
     <% @jobs.each do |job| %>
-      <div class="status-card">
+      <%= link_to job_path(job), data: { turbo_frame: "job-detail" }, class: "status-card status-card--link" do %>
         <div class="job-card-meta-top">
           <span class="job-card-time">Posted <%= time_ago_in_words(job.created_at) %> ago</span>
           <span class="job-card-dot">&middot;</span>
@@ -34,7 +41,7 @@
             <% end %>
           </div>
         <% end %>
-      </div>
+      <% end %>
     <% end %>
     </div>
   <% end %>
