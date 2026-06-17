@@ -12,7 +12,10 @@ module ApplicationHelper
     "rejected"    => "badge-rejected",
     "cancelled"   => "badge-cancelled",
     "verified"    => "badge-verified",
-    "unverified"  => "badge-pending"
+    "unverified"  => "badge-pending",
+    "quote_submitted" => "badge-pending",
+    "quote_approved"  => "badge-completed",
+    "quote_rejected"  => "badge-rejected"
   }.freeze
 
   def status_badge(status)

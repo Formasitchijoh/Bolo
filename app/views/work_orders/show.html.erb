@@ -1,22 +1,82 @@
-<div>
-  <h1>Work Order Details</h1>
-  <div class="card">
-    <p><strong>Task: </strong> <%= @work_order.assignment.job.title %> </p>
-    <p><strong>Details: </strong> <%= @work_order.assignment.job.details %> </p>
-    <p><strong>Created At:</strong> <%= @work_order.created_at %></p>
-    <p><strong>Status:</strong> <%= status_badge(@work_order.status) %></p>
-    <p><strong>Client: </strong> <%= @work_order.assignment.job.customer.user.first_name %> <%= @work_order.assignment.job.customer.user.last_name %> </p>
-    <p><strong>Technician: </strong> <%= @work_order.assignment.technician.user.first_name %> <%= @work_order.assignment.technician.user.last_name %> </p>
-
-    <div class="position-right">
-      <%# By Nesting line item in work order on passing the @workorder to the route it exstracts the work_order_id and passes it as a params to the request which can be assesd in the controller  %>
-        <%= link_to "Related Line Items", line_items_path(@work_order)%>
-        <%= link_to "Add Line Item", new_line_item_path(@work_order), class: "button" %>
-        <% if @work_order.status === 'in_progress'%>
-          <%= button_to "Stop Work", complete_work_order_path(@work_order), method: :patch, class: "button button-stop " %>
-        <% else %>
-        <%= button_to "Start Work", start_work_order_path(@work_order), method: :patch, class: "button button-secondary" %>
-        <% end %>
+<div class="container">
+  <div class="dashboard-header">
+    <%# By Nesting line item in work order on passing the @workorder to the route it exstracts the work_order_id and passes it as a params to the request which can be assesd in the controller  %>
+    <div>
+      
+      <h1><%= @work_order.assignment.job.title %></h1>
+      <p class="status-card-meta">Work Order &middot; Created <%= time_ago_in_words(@work_order.created_at) %> ago</p>
     </div>
+    <%= status_badge(@work_order.status) %>
+  </div>
+
+  <div class="status-card">
+    <p class="drawer-label">Job Details</p>
+    <p class="status-card-meta"><%= @work_order.assignment.job.details %></p>
+
+    <div class="work-order-parties">
+      <div>
+        <p class="drawer-label">Customer</p>
+        <p class="drawer-value">
+          <%= @work_order.assignment.job.customer.user.first_name %>
+          <%= @work_order.assignment.job.customer.user.last_name %>
+        </p>
+      </div>
+      <div>
+        <p class="drawer-label">Technician</p>
+        <p class="drawer-value">
+          <%= @work_order.assignment.technician.user.first_name %>
+          <%= @work_order.assignment.technician.user.last_name %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="status-card">
+    <div class="section-header">
+      <p class="drawer-label">Quote / Line Items</p>
+      <% if current_user.technician? && !%w[quote_submitted quote_approved completed].include?(@work_order.status) %>
+        <%= link_to "Add Item", new_line_item_path(@work_order), class: "button" %>
+      <% end %>
+    </div>
+
+    <% if @work_order.line_items.any? %>
+      <div class="line-items-list">
+        <% @work_order.line_items.each do |item| %>
+          <div class="line-item-row">
+            <p class="line-item-description"><%= item.description %></p>
+            <p class="line-item-amount">FCFA <%= number_with_delimiter(item.amount.to_i) %></p>
+            <% if current_user.technician? && !%w[quote_submitted quote_approved completed].include?(@work_order.status) %>
+              <%= button_to "Remove", line_item_destroy_path(@work_order, item), method: :delete, class: "line-item-remove" %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="line-items-total">
+          <p class="drawer-label">Total</p>
+          <p class="line-item-total-amount">
+            FCFA <%= number_with_delimiter(@work_order.line_items.sum(:amount).to_i) %>
+          </p>
+        </div>
+      </div>
+    <% else %>
+      <p class="status-card-meta">No line items added yet.</p>
+    <% end %>
+  </div>
+
+  <div class="button-container">
+    <% if current_user.technician? %>
+      <% if @work_order.status == "in_progress" %>
+        <%= button_to "Complete Work", complete_work_order_path(@work_order), method: :patch, class: "button" %>
+      <% elsif @work_order.status == "quote_approved" %>
+        <%= button_to "Start Work", start_work_order_path(@work_order), method: :patch, class: "button" %>
+      <% elsif !%w[quote_submitted quote_approved completed].include?(@work_order.status) && @work_order.line_items.any? %>
+        <%= button_to "Submit Quote", submit_quote_path(@work_order), method: :patch, class: "button" %>
+      <% end %>
+    <% end %>
+
+    <% if current_user.customer? && @work_order.status == "quote_submitted" %>
+      <%= button_to "Approve Quote", approve_quote_path(@work_order), method: :patch, class: "button" %>
+      <%= button_to "Reject Quote", reject_quote_path(@work_order), method: :patch, class: "button button-danger" %>
+    <% end %>
   </div>
 </div>

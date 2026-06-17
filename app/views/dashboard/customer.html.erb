@@ -13,6 +13,29 @@
     </div>
   </div>
 
+  <% if @pending_quotes.any? %>
+    <section class="dashboard-section">
+      <h2 class="section-title">Quotes Awaiting Approval</h2>
+      <% @pending_quotes.each do |work_order| %>
+        <div class="status-card">
+          <div class="status-card-top">
+            <div>
+              <p class="status-card-title"><%= work_order.assignment.job.title %></p>
+              <p class="status-card-meta">Quote submitted by technician</p>
+            </div>
+            <%= status_badge(work_order.status) %>
+          </div>
+          <p class="status-card-price">
+            FCFA <%= number_with_delimiter(work_order.line_items.sum(:amount).to_i) %> total
+          </p>
+          <div class="button-container">
+            <%= link_to "Review Quote", work_order_details_path(work_order), class: "button" %>
+          </div>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+
   <% if @active_jobs.any? %>
     <section class="dashboard-section">
       <h2 class="section-title">Active Jobs</h2>

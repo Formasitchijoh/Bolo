@@ -37,6 +37,10 @@ Rails.application.routes.draw do
   get    "work_orders/:work_order_id/line_items/new"  => "line_items#new",     as: :new_line_item
   post   "work_orders/:work_order_id/line_items"      => "line_items#create",  as: :create_new_line_item
   delete "work_orders/:work_order_id/line_items/:id"  => "line_items#destroy", as: :line_item_destroy
+  patch "work_orders/:id/submit_quote"  => "work_orders#submit_quote",  as: :submit_quote
+  patch "work_orders/:id/approve_quote" => "work_orders#approve_quote", as: :approve_quote
+  patch "work_orders/:id/reject_quote"  => "work_orders#reject_quote",  as: :reject_quote
+
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

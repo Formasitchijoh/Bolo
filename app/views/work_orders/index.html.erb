@@ -1,12 +1,45 @@
-<div>
-  <h1>Work Orders</h1>
-  <ul>
-    <% @work_orders.each do |work_order| %>
-      <li>
-        <%= link_to work_order.id, work_order_details_path(work_order) %>
-        - Created at: <%= work_order.created_at %>
-        - Status: <%= work_order.status %>
-      </li>
-    <% end %>
-  </ul>
+<div class="container">
+  <div class="dashboard-header">
+    <h1>Work Orders</h1>
+  </div>
+
+  <% if @work_orders.empty? %>
+    <div class="empty-state">
+      <p>No work orders yet.</p>
+    </div>
+  <% else %>
+    <div class="table-wrapper">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Job</th>
+            <th>Customer</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @work_orders.each do |work_order| %>
+            <tr class="table-row">
+              <td class="table-cell-primary"><%= work_order.assignment.job.title %></td>
+              <td class="table-cell">
+                <%= work_order.assignment.job.customer.user.first_name %>
+                <%= work_order.assignment.job.customer.user.last_name %>
+              </td>
+              <td class="table-cell"><%= status_badge(work_order.status) %></td>
+              <td class="table-cell">
+                FCFA <%= number_with_delimiter(work_order.line_items.sum(:amount).to_i) %>
+              </td>
+              <td class="table-cell"><%= time_ago_in_words(work_order.created_at) %> ago</td>
+              <td class="table-cell-action">
+                <%= link_to "View", work_order_details_path(work_order), class: "button button-secondary" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>
