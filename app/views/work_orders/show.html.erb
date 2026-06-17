@@ -92,8 +92,12 @@
         <%= button_to "Resume Work", resume_work_order_path(@work_order), method: :patch, class: "button" %>
       <% elsif @work_order.status == "quote_approved" %>
         <%= button_to "Start Work", start_work_order_path(@work_order), method: :patch, class: "button" %>
-      <% elsif !%w[quote_submitted quote_approved completed].include?(@work_order.status) && @work_order.line_items.any? %>
-        <%= button_to "Submit Quote", submit_quote_path(@work_order), method: :patch, class: "button" %>
+      <% elsif !%w[quote_submitted quote_approved completed].include?(@work_order.status) %>
+        <% if @work_order.line_items.any? %>
+          <%= button_to "Submit Quote", submit_quote_path(@work_order), method: :patch, class: "button" %>
+        <% else %>
+          <%= button_to "Start Work", start_work_order_path(@work_order), method: :patch, class: "button" %>
+        <% end %>
       <% end %>
     <% end %>
 

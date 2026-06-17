@@ -130,6 +130,10 @@
   gap: var(--space-3);
 }
 
+.drawer-actions {
+  margin-top: var(--space-3);
+}
+
 .drawer-timestamp {
   font-size: var(--text-xs);
   color: var(--color-text-muted);

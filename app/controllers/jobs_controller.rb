@@ -15,14 +15,16 @@ class JobsController < ApplicationController
   def show
     if current_user.customer?
       @job = current_user.customer.jobs
-                         .includes(:job_category, :address, :assignments, media_attachments: :blob)
+                         .includes(:job_category, :address, assignments: { technician: :user, work_order: :line_items }, media_attachments: :blob)
                          .find(params[:id])
     elsif current_user.technician?
       @job = Job.joins(:assignments)
                 .where(assignments: { technician_id: current_user.technician.id })
-                .includes(:job_category, :address, media_attachments: :blob)
+                .includes(:job_category, :address, assignments: { work_order: :line_items }, media_attachments: :blob)
                 .find(params[:id])
     end
+    @latest_assignment = @job.assignments.max_by(&:created_at)
+    @work_order        = @latest_assignment&.work_order
   end
 
   def new

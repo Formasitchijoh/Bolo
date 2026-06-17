@@ -24,14 +24,50 @@
       </div>
     <% end %>
 
-    <% if @job.assignments.any? %>
+    <% if @latest_assignment %>
       <div class="drawer-section">
         <p class="drawer-label">Technician</p>
-        <% latest = @job.assignments.max_by(&:created_at) %>
         <div class="drawer-assignment">
-          <p class="drawer-value"><%= latest.technician.user.first_name %> <%= latest.technician.user.last_name %></p>
-          <%= status_badge(latest.status) %>
+          <p class="drawer-value">
+            <%= @latest_assignment.technician.user.first_name %>
+            <%= @latest_assignment.technician.user.last_name %>
+          </p>
+          <%= status_badge(@latest_assignment.status) %>
         </div>
+      </div>
+
+      <% if @work_order %>
+        <div class="drawer-section">
+          <p class="drawer-label">Work Order</p>
+          <%= status_badge(@work_order.status) %>
+
+          <% if @work_order.status == "quote_submitted" %>
+            <p class="status-card-meta" style="margin-top: var(--space-2)">The technician has submitted a quote for your approval.</p>
+            <div class="drawer-actions">
+              <%= link_to "Review & Approve Quote", work_order_details_path(@work_order), class: "button" %>
+            </div>
+
+          <% elsif @work_order.status == "quote_approved" %>
+            <p class="status-card-meta" style="margin-top: var(--space-2)">Quote approved. Technician is preparing to start work.</p>
+
+          <% elsif @work_order.status == "in_progress" %>
+            <p class="status-card-meta" style="margin-top: var(--space-2)">Work is currently in progress.</p>
+
+          <% elsif @work_order.status == "on_hold" %>
+            <p class="status-card-meta" style="margin-top: var(--space-2)">Work is paused.</p>
+
+          <% elsif @work_order.status == "completed" %>
+            <p class="status-card-meta" style="margin-top: var(--space-2)">
+              Work completed in <%= @work_order.formatted_duration %>.
+              Total billed: FCFA <%= number_with_delimiter(@work_order.line_items.sum(:amount).to_i) %>.
+            </p>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="drawer-section">
+        <p class="drawer-label">Assignment</p>
+        <p class="status-card-meta">Finding a technician for your job...</p>
       </div>
     <% end %>
 
