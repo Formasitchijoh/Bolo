@@ -56,7 +56,7 @@ class JobMatchingService
       technician: technician,
       company_id: technician.company_id,
       status: "pending",
-      claim_window: Time.current + 1.minutes
+      claim_window: Time.current + 10.minutes
     )
   end
 

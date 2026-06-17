@@ -1,7 +1,7 @@
 class WorkOrdersController < ApplicationController
   before_action :require_login
-  before_action :require_technician, only: [ :index, :show, :work_order_started, :work_order_completed, :submit_quote ]
-  before_action :set_work_order, only: [ :show, :work_order_started, :work_order_completed, :submit_quote, :approve_quote, :reject_quote ]
+  before_action :require_technician, only: [ :index, :work_order_started, :work_order_completed, :submit_quote, :hold, :resume ]
+  before_action :set_work_order, only: [ :show, :work_order_started, :work_order_completed, :submit_quote, :approve_quote, :reject_quote, :hold, :resume ]
 
   def index
     @work_orders = current_user.technician.work_orders
@@ -35,6 +35,21 @@ class WorkOrdersController < ApplicationController
   def reject_quote
     @work_order.update!(status: "quote_rejected")
     redirect_to job_path(@work_order.assignment.job), notice: "Quote rejected."
+  end
+
+  def hold
+    @work_order.update!(status: "on_hold", paused_at: Time.current)
+    redirect_to work_order_details_path(@work_order), notice: "Work paused."
+  end
+
+  def resume
+    paused_duration =  @work_order.paused_at ? (Time.current - @work_order&.paused_at).to_i : 0
+    @work_order.update!(
+      status: "in_progress",
+      paused_at: nil,
+      total_paused_seconds: @work_order.total_paused_seconds + paused_duration
+    )
+    redirect_to work_order_details_path(@work_order), notice: "Work resumed."
   end
 
   private

@@ -63,10 +63,33 @@
     <% end %>
   </div>
 
+  <% if @work_order.status == "completed" %>
+    <div class="status-card">
+      <p class="drawer-label">Job Summary</p>
+      <div class="work-order-parties">
+        <div>
+          <p class="drawer-label">Time Taken</p>
+          <p class="drawer-value"><%= @work_order.formatted_duration %></p>
+        </div>
+        <div>
+          <p class="drawer-label">Total Billed</p>
+          <p class="drawer-value">FCFA <%= number_with_delimiter(@work_order.line_items.sum(:amount).to_i) %></p>
+        </div>
+        <div>
+          <p class="drawer-label">Completed</p>
+          <p class="drawer-value"><%= @work_order.completed_at.strftime("%b %d, %Y at %H:%M") %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <div class="button-container">
     <% if current_user.technician? %>
       <% if @work_order.status == "in_progress" %>
+        <%= button_to "Pause Work", hold_work_order_path(@work_order), method: :patch, class: "button button-secondary" %>
         <%= button_to "Complete Work", complete_work_order_path(@work_order), method: :patch, class: "button" %>
+      <% elsif @work_order.status == "on_hold" %>
+        <%= button_to "Resume Work", resume_work_order_path(@work_order), method: :patch, class: "button" %>
       <% elsif @work_order.status == "quote_approved" %>
         <%= button_to "Start Work", start_work_order_path(@work_order), method: :patch, class: "button" %>
       <% elsif !%w[quote_submitted quote_approved completed].include?(@work_order.status) && @work_order.line_items.any? %>
