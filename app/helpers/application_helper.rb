@@ -18,6 +18,17 @@ module ApplicationHelper
     "quote_rejected"  => "badge-rejected"
   }.freeze
 
+  def notification_path_for(notification)
+    case notification.notifiable_type
+    when "WorkOrder"
+      work_order_details_path(notification.notifiable)
+    when "Quote"
+      work_order_details_path(notification.notifiable.work_order)
+    when "Assignment"
+      assignments_path
+    end
+  end
+
   def status_badge(status)
     css = STATUS_BADGE_MAP.fetch(status.to_s, "badge-pending")
     content_tag(:span, status.to_s.humanize, class: "badge #{css}")

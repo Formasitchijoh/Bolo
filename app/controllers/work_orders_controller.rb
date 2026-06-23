@@ -19,16 +19,21 @@ class WorkOrdersController < ApplicationController
 
   def work_order_completed
     @work_order.update!(status: "completed", completed_at: Time.current)
+    # When a technician accepts a job then the customer gets notified of this
+    Notification.new(user: @work_order.assignment.job.customer.user, notifiable: @work_order, title: 'Your Task has been Completed', details: "Your job has been Completed by #{ current_user.technician.user.first_name } #{ current_user.technician.user.last_name } ").save!
     redirect_to work_order_details_path(@work_order), notice: "Work order marked as complete."
   end
 
   def submit_quote
     @work_order.update!(status: "quote_submitted")
+    # When a Quote is submitted then customer is informed of the details so they can approve or reject
+    Notification.new(user: @work_order.assignment.job.customer.user, notifiable: @work_order, title: 'You have a Quote', details: "The technician #{ current_user.technician.user.first_name }  #{ current_user.technician.user.last_name } submitted a Quote waiting for your approval").save!
     redirect_to work_order_details_path(@work_order), notice: "Quote submitted to customer."
   end
 
   def approve_quote
     @work_order.update!(status: "quote_approved")
+    Notification.new(user: @work_order.assignment.job.customer.user, notifiable: @work_order, title: 'Quote has been approved', details: "The Customer #{ @work_order.assignment.job.customer.user.first_name } #{ @work_order.assignment.job.customer.user.last_name } submitted a Quote waiting for your approval").save!
     redirect_to job_path(@work_order.assignment.job), notice: "Quote approved."
   end
 

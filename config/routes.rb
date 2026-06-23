@@ -43,6 +43,9 @@ Rails.application.routes.draw do
   patch "work_orders/:id/approve_quote" => "work_orders#approve_quote", as: :approve_quote
   patch "work_orders/:id/reject_quote"  => "work_orders#reject_quote",  as: :reject_quote
 
+  # Notification Routes
+
+  get "notifications" => "notifications#show", as: :notification
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

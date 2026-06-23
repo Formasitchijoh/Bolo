@@ -1,6 +1,15 @@
+
+<div class="notification-container" data-controller="notification">
+  <div data-notification-target="menu">
+      <turbo-frame id="notification_menu" data-action="turbo:frame-load->notification#open"></turbo-frame>
+  </div>
+</div>
 <nav class="navbar">
   <%= link_to "Bolo", dashboard_path, class: "navbar-brand" %>
   <div class="navbar-right">
+    <%= link_to notification_path, data: { turbo_frame: "notification_menu"} do %>
+      <button class="drawer-close">&#128276;</button>
+    <% end %>
     <div class="navbar-avatar">
       <%= current_user.first_name[0].upcase %><%= current_user.last_name[0].upcase %>
     </div>
