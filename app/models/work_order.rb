@@ -5,6 +5,7 @@ class WorkOrder < ApplicationRecord
   has_many :line_items, dependent: :destroy
   has_one :payment, dependent: :destroy
   has_many_attached :media
+  has_many :comments, as: :commentable, dependent: :destroy
   validates :status, inclusion: { in: %w[on_hold en_route arrived in_progress onhold incomplete completed cancelled quote_submitted quote_approved quote_rejected] }
 
   def actual_duration_seconds

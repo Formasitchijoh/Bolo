@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get  "jobs/new"     => "jobs#new",    as: :new_job
   post "jobs"         => "jobs#create"
   get  "jobs/:id"     => "jobs#show",   as: :job
+  post "jobs/:job_id/comments" => "comments#create", as: :job_comments
 
   # Technician Profile
   get   "technician/profile" => "technician_profiles#edit",   as: :edit_technician_profile
@@ -43,8 +44,9 @@ Rails.application.routes.draw do
   patch "work_orders/:id/approve_quote" => "work_orders#approve_quote", as: :approve_quote
   patch "work_orders/:id/reject_quote"  => "work_orders#reject_quote",  as: :reject_quote
 
+  # Comments Routes
+  post "work_orders/:work_order_id/comments" => "comments#create", as: :work_order_comments
   # Notification Routes
-
   get "notifications" => "notifications#index", as: :notification
 
   get "up" => "rails/health#show", as: :rails_health_check
