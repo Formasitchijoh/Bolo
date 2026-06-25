@@ -5,7 +5,7 @@
     </div>
     <div class="notification-menu__list">
       <% @notification.each do |notification| %>
-        <%= link_to notification_path_for(notification), class: "notification-item notification-item--#{notification.priority} #{'notification-item--unread' unless notification.read_at}" do %>
+        <%= link_to notification_path_for(notification), class: "notification-item #{'notification-item--unread' unless notification.read_at}" do %>
           <div class="notification-item__dot"></div>
           <div class="notification-item__body">
             <p class="notification-item__title"><%= notification.title %></p>

@@ -1,3 +1,22 @@
-<div>
-	<p> Main Notification Component </p>
-</div>
+<turbo-frame id="notification_menu">
+  <div class="notification-menu">
+    <div class="notification-menu__header">
+      <span>Notifications</span>
+    </div>
+    <div class="notification-menu__list">
+      <% @notification.each do |notification| %>
+        <%= link_to notification_path_for(notification), class: "notification-item #{'notification-item--unread' unless notification.read_at}" do %>
+          <div class="notification-item__dot"></div>
+          <div class="notification-item__body">
+            <p class="notification-item__title"><%= notification.title %></p>
+            <p class="notification-item__details"><%= notification.details %></p>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if @notification.empty? %>
+        <p class="notification-menu__empty">No notifications</p>
+      <% end %>
+    </div>
+  </div>
+</turbo-frame>

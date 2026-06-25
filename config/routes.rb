@@ -45,7 +45,7 @@ Rails.application.routes.draw do
 
   # Notification Routes
 
-  get "notifications" => "notifications#show", as: :notification
+  get "notifications" => "notifications#index", as: :notification
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

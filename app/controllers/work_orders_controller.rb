@@ -33,7 +33,7 @@ class WorkOrdersController < ApplicationController
 
   def approve_quote
     @work_order.update!(status: "quote_approved")
-    Notification.new(user: @work_order.assignment.job.customer.user, notifiable: @work_order, title: 'Quote has been approved', details: "The Customer #{ @work_order.assignment.job.customer.user.first_name } #{ @work_order.assignment.job.customer.user.last_name } submitted a Quote waiting for your approval").save!
+    Notification.new(user: @work_order.assignment.technician.user, notifiable: @work_order, title: 'Quote has been approved',  details: "#{@work_order.assignment.job.customer.user.first_name} approved your quote. You can now start work.").save!
     redirect_to job_path(@work_order.assignment.job), notice: "Quote approved."
   end
 
