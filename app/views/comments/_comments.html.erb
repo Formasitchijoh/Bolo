@@ -1,0 +1,26 @@
+<div class="comments-section">
+  <p class="drawer-label">Comments</p>
+
+  <% if commentable.comments.any? %>
+    <div class="comment-thread">
+      <%= render partial: "comments/comment",
+                 collection: commentable.comments.includes(:user).order(created_at: :asc),
+                 as: :comment %>
+    </div>
+  <% else %>
+    <p class="status-card-meta">No comments yet. Be the first to leave one.</p>
+  <% end %>
+
+  <%= form_with url: url, multipart: true, class: "comment-form" do |f| %>
+    <div class="comment-input-wrapper">
+      <%= f.text_area :body, name: "comment[body]", placeholder: "Add a comment...", class: "comment-input", rows: 3 %>
+      <label class="comment-add-media">
+        +
+        <%= f.file_field :media, name: "comment[media][]", multiple: true, accept: "image/*", class: "comment-file-input-hidden" %>
+      </label>
+    </div>
+    <div class="comment-form-footer">
+      <%= f.submit "Comment", class: "button" %>
+    </div>
+  <% end %>
+</div>

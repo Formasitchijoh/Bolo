@@ -83,6 +83,10 @@
     </div>
   <% end %>
 
+  <div class="status-card">
+    <%= render "comments/comments", commentable: @work_order, url: work_order_comments_path(@work_order) %>
+  </div>
+
   <div class="button-container">
     <% if current_user.technician? %>
       <% if @work_order.status == "in_progress" %>

@@ -83,5 +83,9 @@
     <% end %>
 
     <p class="drawer-timestamp">Posted <%= time_ago_in_words(@job.created_at) %> ago</p>
+
+    <div class="drawer-section">
+      <%= render "comments/comments", commentable: @job, url: job_comments_path(@job) %>
+    </div>
   </div>
 </turbo-frame>

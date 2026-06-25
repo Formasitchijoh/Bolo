@@ -1,0 +1,25 @@
+<div class="comment">
+  <div class="comment-header">
+    <div class="comment-avatar">
+      <%= comment.user.first_name[0].upcase %><%= comment.user.last_name[0].upcase %>
+    </div>
+    <div class="comment-meta">
+      <div class="comment-meta-row">
+        <p class="comment-author"><%= comment.user.first_name %> <%= comment.user.last_name %></p>
+        <span class="comment-meta-divider">|</span>
+        <span class="comment-time"><%= time_ago_in_words(comment.created_at) %> ago</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="comment-body">
+    <p><%= comment.body %></p>
+    <% if comment.media.attached? %>
+      <div class="job-card-media">
+        <% comment.media.each do |file| %>
+          <%= image_tag file, class: "job-card-thumb" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
