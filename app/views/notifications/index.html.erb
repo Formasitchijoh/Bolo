@@ -5,10 +5,10 @@
     </div>
     <div class="notification-menu__list">
       <% @notification.each do |notification| %>
-        <%= link_to notification_path_for(notification), class: "notification-item #{'notification-item--unread' unless notification.read_at}" do %>
+        <%= link_to notification_path_for(notification), data: { turbo_frame: '_top'}, class: "notification-item #{'notification-item--unread' unless notification.read_at}" do %>
           <div class="notification-item__dot"></div>
           <div class="notification-item__body">
-            <p class="notification-item__title"><%= notification.title %></p>
+            <p class="notification-item__title"><%= notification.title %></p><span><%= notification.notifiable.instance_of?(WorkOrder) %></span>
             <p class="notification-item__details"><%= notification.details %></p>
           </div>
         <% end %>

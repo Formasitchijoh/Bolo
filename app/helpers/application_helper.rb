@@ -25,7 +25,7 @@ module ApplicationHelper
     when "Quote"
       work_order_details_path(notification.notifiable.work_order)
     when "Assignment"
-      assignments_path
+      jobs_path(notification.notifiable.job)
     end
   end
 

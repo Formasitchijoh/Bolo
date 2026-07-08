@@ -39,8 +39,11 @@
       <% if @work_order %>
         <div class="drawer-section">
           <p class="drawer-label">Work Order</p>
+          <% (1..5).to_a.each do %>
+            <button class="status-card-dot">&#11088;</button>
+            <%# <button class="status-card-dot">&#11088;</button> %>
+          <% end %>
           <%= status_badge(@work_order.status) %>
-
           <% if @work_order.status == "quote_submitted" %>
             <p class="status-card-meta" style="margin-top: var(--space-2)">The technician has submitted a quote for your approval.</p>
             <div class="drawer-actions">

@@ -13,6 +13,8 @@ class AssignmentsController < ApplicationController
                                .order(created_at: :desc)
   end
 
+  def show
+  end
   def accept
     if @assignment.status == "pending" && @assignment.claim_window > Time.current
       @assignment.update!(status: "assigned")
