@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_17_112328) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_10_034035) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -196,14 +196,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_112328) do
   create_table "ratings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "customer_id", null: false
+    t.bigint "job_id", null: false
     t.text "note"
     t.integer "star", null: false
     t.bigint "technician_id", null: false
     t.datetime "updated_at", null: false
-    t.bigint "work_order_id", null: false
     t.index ["customer_id"], name: "index_ratings_on_customer_id"
+    t.index ["job_id"], name: "index_ratings_on_job_id"
     t.index ["technician_id"], name: "index_ratings_on_technician_id"
-    t.index ["work_order_id"], name: "index_ratings_on_work_order_id"
     t.check_constraint "star >= 1 AND star <= 5", name: "valid_star_range"
   end
 
@@ -321,8 +321,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_112328) do
   add_foreign_key "quotes", "technicians"
   add_foreign_key "quotes", "work_orders"
   add_foreign_key "ratings", "customers"
+  add_foreign_key "ratings", "jobs"
   add_foreign_key "ratings", "technicians"
-  add_foreign_key "ratings", "work_orders"
   add_foreign_key "service_territories", "companies"
   add_foreign_key "shifts", "companies"
   add_foreign_key "shifts", "technicians"

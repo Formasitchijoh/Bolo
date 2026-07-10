@@ -3,6 +3,7 @@ class Job < ApplicationRecord
   belongs_to :customer
   belongs_to :job_category
   has_one :address, as: :addressable, dependent: :destroy
+  has_one :rating, dependent: :destroy
   has_many :assignments, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_many_attached :media
