@@ -39,26 +39,19 @@
       <% if @work_order %>
         <div class="drawer-section">
           <p class="drawer-label">Work Order</p>
-          <% (1..5).to_a.each do %>
-            <button class="status-card-dot">&#11088;</button>
-            <%# <button class="status-card-dot">&#11088;</button> %>
-          <% end %>
           <%= status_badge(@work_order.status) %>
+
           <% if @work_order.status == "quote_submitted" %>
             <p class="status-card-meta" style="margin-top: var(--space-2)">The technician has submitted a quote for your approval.</p>
             <div class="drawer-actions">
               <%= link_to "Review & Approve Quote", work_order_details_path(@work_order), class: "button" %>
             </div>
-
           <% elsif @work_order.status == "quote_approved" %>
             <p class="status-card-meta" style="margin-top: var(--space-2)">Quote approved. Technician is preparing to start work.</p>
-
           <% elsif @work_order.status == "in_progress" %>
             <p class="status-card-meta" style="margin-top: var(--space-2)">Work is currently in progress.</p>
-
           <% elsif @work_order.status == "on_hold" %>
             <p class="status-card-meta" style="margin-top: var(--space-2)">Work is paused.</p>
-
           <% elsif @work_order.status == "completed" %>
             <p class="status-card-meta" style="margin-top: var(--space-2)">
               Work completed in <%= @work_order.formatted_duration %>.
@@ -66,6 +59,31 @@
             </p>
           <% end %>
         </div>
+
+        <% if current_user.customer? && @work_order.status == "completed" %>
+          <div class="drawer-section">
+            <p class="drawer-label">Rating</p>
+            <% if @job.rating %>
+              <div class="star-rating">
+                <% (1..5).each do |n| %>
+                  <span class="rating-star <%= n <= @job.rating.star ? 'rating-star--active' : '' %>">&#9733;</span>
+                <% end %>
+              </div>
+            <% else %>
+              <%= form_with url: job_ratings_path(@job), data: { controller: "rating" } do |f| %>
+                <%= f.hidden_field :star, name: "rating[star]", value: "", data: { rating_target: "input" } %>
+                <div class="star-rating" data-action="mouseleave->rating#reset">
+                  <% (1..5).each do |n| %>
+                    <span class="rating-star"
+                          data-rating-target="star"
+                          data-value="<%= n %>"
+                          data-action="mouseenter->rating#highlight click->rating#submit">&#9733;</span>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     <% else %>
       <div class="drawer-section">

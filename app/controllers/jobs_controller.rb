@@ -13,6 +13,7 @@ class JobsController < ApplicationController
   end
 
   def show
+    @rating = Rating.new
     if current_user.customer?
       @job = current_user.customer.jobs
                          .includes(:job_category, :address, assignments: { technician: :user, work_order: :line_items }, media_attachments: :blob)

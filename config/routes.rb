@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post "jobs"         => "jobs#create"
   get  "jobs/:id"     => "jobs#show",   as: :job
   post "jobs/:job_id/comments" => "comments#create", as: :job_comments
+  post "jobs/:job_id/ratings" => "ratings#create", as: :job_ratings
 
   # Technician Profile
   get   "technician/profile" => "technician_profiles#edit",   as: :edit_technician_profile

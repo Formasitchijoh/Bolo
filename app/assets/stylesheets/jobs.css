@@ -399,3 +399,25 @@
   font-weight: var(--font-medium);
   margin-bottom: var(--space-3);
 }
+
+
+/* _______Rating Stars __________________________________ */
+.star-rating {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.rating-star {
+  font-size: var(--text-2xl);
+  cursor: pointer;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-border);
+  transition: color var(--transition-fast), -webkit-text-stroke-color var(--transition-fast);
+  line-height: 1;
+}
+
+.rating-star--active {
+  color: var(--color-warning);
+  -webkit-text-stroke-color: var(--color-warning);
+}
