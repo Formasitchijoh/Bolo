@@ -249,8 +249,8 @@ h3 {
 }
 
 .sidebar-logout {
-  font-size: var(--text-sm);
-  color: #fc8181;
+  font-size: var(--text-lg);
+  color: #9e2b2b;
   text-decoration: none;
 }
 
