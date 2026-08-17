@@ -1,5 +1,10 @@
-<% flash.each do |type, message| %>
-  <div class="flash flash-<%= type %>">
-    <%= message %>
-  </div>
-<% end %>
+<div class="toast-container" aria-live="polite">
+  <% flash.each do |type, message| %>
+    <div class="toast toast--<%= type %>"
+         data-controller="toast"
+         data-toast-duration-value="4000">
+      <span class="toast-message"><%= message %></span>
+      <button class="toast-close" data-action="click->toast#dismiss">&times;</button>
+    </div>
+  <% end %>
+</div>

@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
       end
       redirect_to dashboard_path, notice: "Successful login"
     else
+      flash.now[:alert] = "Invalid email or password."
       render :new, status: :unauthorized
     end
   end
