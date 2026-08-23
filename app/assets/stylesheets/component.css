@@ -141,6 +141,11 @@
   box-shadow: 0 0 0 3px var(--color-primary-light);
 }
 
+.field-error {
+  font-size: var(--text-sm);
+  color: var(--color-danger);
+}
+
 /* ─── Page Header ────────────────────────────────────────────────── */
 
 .page-header {

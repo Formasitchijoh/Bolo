@@ -33,4 +33,9 @@ module ApplicationHelper
     css = STATUS_BADGE_MAP.fetch(status.to_s, "badge-pending")
     content_tag(:span, status.to_s.humanize, class: "badge #{css}")
   end
+
+  def field_error(object, attribute)
+    return if object.nil? || object.errors[attribute].blank?
+    content_tag(:span, object.errors[attribute].join(", "), class: "field-error")
+  end
 end
