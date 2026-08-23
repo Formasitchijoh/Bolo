@@ -4,6 +4,7 @@
     <div class="form-group">
       <%= form.label :title, "Job title" %>
       <%= form.text_field :title %>
+      <%= field_error(@job, :title) %>
     </div>
 
     <div class="form-group">
@@ -14,16 +15,19 @@
     <div class="form-group">
       <%= form.label :job_category_id, "Job Category" %>
       <%= form.collection_select :job_category_id, @job_categories, :id, :name, { prompt: "Select Job Category" } %>
+      <%= field_error(@job, :job_category_id) %>
     </div>
 
     <div class="form-group">
       <%= form.label :price_range_min, "Minimum Price (FCFA)" %>
       <%= form.number_field :price_range_min, step: 0.01, placeholder: "e.g. 5000" %>
+      <%= field_error(@job, :price_range_min) %>
     </div>
 
     <div class="form-group">
       <%= form.label :price_range_max, "Maximum Price (FCFA)" %>
       <%= form.number_field :price_range_max, step: 0.01, placeholder: "e.g. 15000" %>
+      <%= field_error(@job, :price_range_max) %>
     </div>
 
     <div class="location-field">
@@ -47,6 +51,7 @@
     <div class="form-group ">
       <%= form.label :details, "Job Details" %>
       <%= form.text_area :details, rows: 4, class: "details-container", placeholder: "Describe the job in detail..." %>
+      <%= field_error(@job, :details) %>
     </div>
 
 

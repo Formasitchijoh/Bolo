@@ -4,10 +4,12 @@
     <div class="form-group">
       <%= form.label :description %>
       <%= form.text_area :description, rows: 4, class: "details-container" %>
+      <%= field_error(@line_item, :description) %>
     </div>
     <div class="form-group">
       <%= form.label :amount %>
       <%= form.number_field :amount, step: 0.01, placeholder: "e.g. 5000" %>
+      <%= field_error(@line_item, :amount) %>
     </div>
     <div class="button-container">
       <%= form.submit "Add Item", class: "button" %>

@@ -12,6 +12,9 @@
             <div class="form-group">
                 <%= form.label :password %>
                 <%= form.password_field :password %>
+                <% if @login_error %>
+                  <span class="field-error"><%= @login_error %></span>
+                <% end %>
             </div>
             <div class="form-group">
                  <%= link_to "Don't have an account? Register here.", register_path %>
